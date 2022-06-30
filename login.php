@@ -1,46 +1,89 @@
+<?php
+
+
+$errors = array('email' => '', 'password' => '');
+$email = $password = '';
+if (isset($_POST['submit'])) {
+
+    if (empty($_POST['email'])) {
+        // echo 'Email is empty <br>';
+        $errors['email'] = 'Email is empty <br>';
+    } else {
+        // echo htmlspecialchars($_POST['email']);
+        $email = $_POST['email'];
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            // echo "Email must be a valid email address";
+            $errors['email'] = "Email must be a valid email address";
+        }
+    }
+
+
+    if (empty($_POST['password'])) {
+        // echo 'Ingredients is empty <br>';
+        $errors['password']  = 'Password is empty <br>';
+    } else {
+        // echo htmlspecialchars($_POST['ingredients']);
+        $password = $_POST['password'];
+        if (!preg_match('/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/', $password)) {
+            // echo 'Ingredients must be comma separated <br>';
+            $errors['password']  = 'Password must be filled <br>';
+        }
+    }
+
+    if (array_filter($errors)) {
+        // echo 'There is error';
+        foreach ($errors as $key => $val) {
+            echo "Error in $key => $val <br>";
+        }
+    } else {
+        if (isset($_POST['remember'])) {
+            setcookie('email', $email, time() + 3600);
+            setcookie('password', $password, time() + 3600);
+            session_start();
+            $_SESSION['email'] = $email;
+            header('Location:http://localhost/Web%20Project/index.php');
+        }
+    }
+}
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 
 <?php include "header1.php" ?>
+
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-                <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
+                        <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                            <h3 class="mb-5">Sign in</h3>
 
-                        <div class="mb-md-5 mt-md-4 pb-5">
-
-                            <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-                            <p class="text-white-50 mb-5">Please enter your login and password!</p>
-
-                            <div class="form-outline form-white mb-4">
-                                <input type="email" id="typeEmailX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeEmailX">Email</label>
+                            <div class="form-outline mb-4">
+                                <input name="email" value="<?php echo htmlspecialchars($email); ?>" type="email" id="typeEmailX-2" class="form-control form-control-lg" />
+                                <label class="form-label" for="typeEmailX-2">Email</label>
                             </div>
 
-                            <div class="form-outline form-white mb-4">
-                                <input type="password" id="typePasswordX" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePasswordX">Password</label>
+                            <div class="form-outline mb-4">
+                                <input name="password" value="<?php echo htmlspecialchars($password); ?>" type="password" id="typePasswordX-2" class="form-control form-control-lg" />
+                                <label class="form-label" for="typePasswordX-2">Password</label>
                             </div>
 
-                            <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-
-                            <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-
-                            <div class="d-flex justify-content-center text-center mt-4 pt-1">
-                                <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-                                <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
-                                <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
+                            <!-- Checkbox -->
+                            <div class="form-check d-flex justify-content-start mb-4">
+                                <input name="remember" class="form-check-input me-3" type="checkbox" value="" id="form1Example3" />
+                                <label name="remember" class="form-check-label " for="form1Example3"> Remember password </label>
                             </div>
 
-                        </div>
+                            <input type="submit" value="Login" name="submit" class="btn btn-primary btn-lg btn-block">
+                        </form>
 
-                        <div>
-                            <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a>
-                            </p>
-                        </div>
 
                     </div>
                 </div>
@@ -63,26 +106,5 @@
     </div> -->
 
 <?php include "footer.php" ?>
-
-<script type="text/javascript">
-    function _(element) {
-        return document.getElementById(element)
-    }
-
-
-    var label = _("label_chat");
-    label.addEventListener('click', function() {
-        var inner_pannel = _('inner_left_pannel');
-        var ajax = new XMLHttpRequest();
-        ajax.onload = function() {
-
-            if (ajax.status === 200 || ajax.readyState === 4) {
-                inner_pannel.innerHTML = ajax.responseText;
-            }
-        }
-        ajax.open("POST", "file.txt", true);
-        ajax.send();
-    })
-</script>
 
 </html>

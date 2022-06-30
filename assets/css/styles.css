@@ -1,38 +1,38 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Yellowtail&display=swap");
 #wrapper {
-  max-width: 900px;
-  min-height: 500px;
+  max-width: 1000px;
+  min-height: 790px;
   display: flex;
   margin: auto;
   color: white;
 }
-#wrapper1 {
+/* #wrapper1 {
   max-width: 900px;
   min-height: 500px;
   margin: auto;
   color: grey;
-}
+} */
 #left_pannel {
-  min-height: 500px;
+  min-height: 790px;
   flex: 1;
   background-color: #27344b;
   text-align: center;
 }
 #profile-img {
-  width: 50%;
+  width: 70%;
   border: solid thin white;
   border-radius: 50%;
   margin: 10px;
 }
 #left_pannel label {
   width: 100%;
-  height: 30px;
+  height: 50px;
   display: block;
   font-size: 13px;
   background: #404b56;
   border-bottom: solid thin #ffffff55;
   cursor: pointer;
-  padding: 5px;
+  padding: 10px;
   transition: all 1s ease-in-out;
 }
 #left_pannel label:hover {
@@ -40,11 +40,11 @@
 }
 #left_pannel label img {
   float: right;
-  width: 25px;
+  width: 30px;
 }
 #right_pannel {
   flex: 4;
-  min-height: 500px;
+  min-height: 790px;
 }
 #header {
   background-color: #485b6c;
@@ -68,13 +68,13 @@
 #inner_left_pannel {
   background-color: #383e48;
   flex: 1;
-  min-height: 430px;
+  min-height: 790px;
 }
 
 #inner_right_pannel {
   background-color: #f2f7f8;
   flex: 2;
-  min-height: 430px;
+  min-height: 790px;
   transition: all 1s ease-in-out;
 }
 /* #radio_chat:checked ~ #inner_right_pannel {

@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+
+echo "Welcome " . $_SESSION['email'];
+
+
+?>
+
+
 <!DOCTYPE html>
 
 <?php include "header.php" ?>
@@ -6,11 +16,11 @@
 <div id="wrapper">
     <div id="left_pannel">
         <div style="padding: 10px;">
-            <img id="profile-img" src="ui/images/user3.jpg" alt="No user">
+            <img id="profile-img" src="ui/images/user1.jpg" alt="No user">
             <br>
-            Keylly Hartmann
+            <h1 style="font-size: 18px; margin-bottom:-20px;">Keylly Hartmann</h1>
             <br>
-            <span style="font-size: 12px; opacity:0.5;">keylly@gamil.com</span>
+            <span style="font-size: 15px; opacity:0.5;">keylly@gamil.com</span>
             <br>
             <br>
             <br>
