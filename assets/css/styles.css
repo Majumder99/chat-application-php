@@ -87,7 +87,7 @@
   flex: 0;
 }
 
-form {
+/* form {
   margin: auto;
   padding: 10px;
   width: 100%;
@@ -112,4 +112,10 @@ input[type="submit"] {
 input[type="radio"] {
   transform: scale(1.2);
   cursor: pointer;
+} */
+.gradient-custom {
+  margin-bottom: 50px;
+}
+.terms-service {
+  margin-left: -50px !important;
 }

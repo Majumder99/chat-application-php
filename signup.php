@@ -1,53 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <title>My Chat Application</title>
-</head>
+<?php include "header1.php" ?>
 
-<body>
-    <div id="header1">
-        My Chat
-        <div style="font-size: 20px; margin-bottom:20px;">Login</div>
-    </div>
-    <div id="wrapper1" style="color: grey;">
-        <form action="">
-            <input type="text" name="username" placeholder="Username"><br>
-            <div style="padding: 10px;">
-                Gender<br>
-                <input type="radio" name="gender">Male</br>
-                <input type="radio" name="gender">Female</br>
+<section class="vh-100 mb-5 mt-5">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+                <div class="card text-black" style="border-radius: 25px;">
+                    <div class="card-body p-md-5">
+                        <div class="row justify-content-center">
+                            <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+
+                                <form class="mx-1 mx-md-4">
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <input type="text" id="form3Example1c" class="form-control" />
+                                            <label class="form-label" for="form3Example1c">Your Name</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <input type="email" id="form3Example3c" class="form-control" />
+                                            <label class="form-label" for="form3Example3c">Your Email</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+                                        <h6 class="mb-0 me-4 ms-3">Gender: </h6>
+
+                                        <div class="form-check form-check-inline mb-0 me-4">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender" value="option1" />
+                                            <label class="form-check-label" for="femaleGender">Female</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline mb-0 me-4">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender" value="option2" />
+                                            <label class="form-check-label" for="maleGender">Male</label>
+                                        </div>
+
+                                        <div class="form-check form-check-inline mb-0">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender" value="option3" />
+                                            <label class="form-check-label" for="otherGender">Other</label>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <input type="password" id="form3Example4c" class="form-control" />
+                                            <label class="form-label" for="form3Example4c">Password</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                                        <div class="form-outline flex-fill mb-0">
+                                            <input type="password" id="form3Example4cd" class="form-control" />
+                                            <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check d-flex justify-content-center mb-5 terms-service">
+                                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                                        <label class="form-check-label" for="form2Example3">
+                                            I agree all statements in <a href="#!">Terms of service</a>
+                                        </label>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                        <button type="button" class="btn btn-primary btn-lg">Register</button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                            <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                                <img src="https://images.pexels.com/photos/6207368/pexels-photo-6207368.jpeg?cs=srgb&dl=pexels-skylar-kang-6207368.jpg&fm=jpg" class="img-fluid" alt="Sample image">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <input type="password" name="password" placeholder="Password"><br>
-            <input type="password" name="password2" placeholder="ReType Password"><br>
-            <input type="submit" value="Sign Up"><br>
-        </form>
+        </div>
     </div>
-</body>
-
-<script type="text/javascript">
-    function _(element) {
-        return document.getElementById(element)
-    }
+</section>
 
 
-    var label = _("label_chat");
-    label.addEventListener('click', function() {
-        var inner_pannel = _('inner_left_pannel');
-        var ajax = new XMLHttpRequest();
-        ajax.onload = function() {
+<?php include "footer.php" ?>
 
-            if (ajax.status === 200 || ajax.readyState === 4) {
-                inner_pannel.innerHTML = ajax.responseText;
-            }
-        }
-        ajax.open("POST", "file.txt", true);
-        ajax.send();
-    })
-</script>
 
 </html>
