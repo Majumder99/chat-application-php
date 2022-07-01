@@ -1,63 +1,7 @@
 <?php
 
-
-$errors = array('email' => '', 'username' => '', 'password' => '', 'repassword' => '');
 $email = $username = $password = $repassword = '';
-if (isset($_POST['submit'])) {
 
-    if (empty($_POST['email'])) {
-        $errors['email'] = 'Email is empty <br>';
-    } else {
-        $email = $_POST['email'];
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = "Email must be a valid email address";
-        }
-    }
-
-    if (empty($_POST['username'])) {
-        $errors['username'] =  'Username is empty <br>';
-    } else {
-        $username = $_POST['username'];
-        if (!preg_match('/^[A-Za-z]{1}[A-Za-z0-9]{5,31}$/', $username)) {
-
-            $errors['username'] =  'Username must be letters and spaces only <br>';
-        }
-    }
-
-    if (empty($_POST['password'])) {
-        $errors['password']  = 'Password is empty <br>';
-    } else {
-        $password = $_POST['password'];
-        if (!preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/', $password)) {
-
-            $errors['password']  = 'Password must be comma separated <br>';
-        }
-    }
-
-    if (empty($_POST['repassword'])) {
-        $errors['repassword']  = 'Re-Password is empty <br>';
-    } else {
-        $repassword = $_POST['repassword'];
-        if (!preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/', $password)) {
-
-            $errors['repassword']  = 'Repassword must be comma separated <br>';
-        }
-    }
-
-    if (array_filter($errors)) {
-        foreach ($errors as $key => $val) {
-            echo "Error in $key => $val <br>";
-        }
-    } else {
-        if (isset($_POST['agreed'])) {
-            session_start();
-            $_SESSION['email'] = $email;
-            // header('Location:http://localhost/Web%20Project/index.php');
-        } else {
-            echo "Please check the accept checkbox";
-        }
-    }
-}
 ?>
 
 
@@ -70,28 +14,30 @@ if (isset($_POST['submit'])) {
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-12 col-xl-11">
+                <div id="error"></div>
                 <div class="card text-black" style="border-radius: 25px;">
                     <div class="card-body p-md-5">
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
-
                                 <form id="myForm" class="mx-1 mx-md-4" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input name="username" value="<?php echo htmlspecialchars($username); ?>" type="text" id="form3Example1c" class="form-control" />
                                             <label class="form-label" for="form3Example1c">Username</label>
+                                            <input name="username" value="<?php echo htmlspecialchars($username); ?>" type="text" id="form3Example1c" class="form-control" />
+                                            <div class="red-text" id="username"></div>
                                         </div>
                                     </div>
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input name="email" value="<?php echo htmlspecialchars($email); ?>" type="email" id="form3Example3c" class="form-control" />
                                             <label class="form-label" for="form3Example3c">Your Email</label>
+                                            <input name="email" value="<?php echo htmlspecialchars($email); ?>" type="email" id="form3Example3c" class="form-control" />
+                                            <div class="red-text" id="email"></div>
                                         </div>
                                     </div>
 
@@ -119,16 +65,18 @@ if (isset($_POST['submit'])) {
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input name="password" value="<?php echo htmlspecialchars($password); ?>" type="password" id="form3Example4c" class="form-control" />
                                             <label class="form-label" for="form3Example4c">Password</label>
+                                            <input name="password" value="<?php echo htmlspecialchars($password); ?>" type="password" id="form3Example4c" class="form-control" />
+                                            <div class="red-text" id="password"></div>
                                         </div>
                                     </div>
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input name="repassword" value="<?php echo htmlspecialchars($repassword); ?>" type="password" id="form3Example4cd" class="form-control" />
                                             <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                                            <input name="repassword" value="<?php echo htmlspecialchars($repassword); ?>" type="password" id="form3Example4cd" class="form-control" />
+                                            <div class="red-text" id="repassword"></div>
                                         </div>
                                     </div>
 
@@ -171,6 +119,8 @@ if (isset($_POST['submit'])) {
     signup_button.addEventListener('click', collect_data);
 
     function collect_data() {
+        signup_button.disable = true;
+        signup_button.value = 'Loading.....';
         var myForm = documentId("myForm");
         var inputs = myForm.getElementsByTagName("INPUT");
         var data = {};
@@ -207,13 +157,33 @@ if (isset($_POST['submit'])) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-                alert(xhttp.responseText);
+                // alert(xhttp.responseText);
+                handle_result(xhttp.responseText);
+                signup_button.disable = false;
+                signup_button.value = 'Signup';
             }
         };
         data.data_type = type;
         var data_string = JSON.stringify(data);
         xhttp.open("POST", "api.php", true);
         xhttp.send(data_string);
+    }
+    const handle_result = (result) => {
+        console.log("I am in handle result");
+        var data = JSON.parse(result);
+        if (data.data_type == "Successfull") {
+            window.location.assign("index.php")
+        } else {
+            var username = document.getElementById('username');
+            var email = document.getElementById('email');
+            var password = document.getElementById('password');
+            var repassword = document.getElementById('repassword');
+
+            username.innerHTML = data.message.username;
+            email.innerHTML = data.message.email;
+            password.innerHTML = data.message.password;
+            repassword.innerHTML = data.message.repassword;
+        }
     }
 </script>
 
