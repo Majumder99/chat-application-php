@@ -1,8 +1,8 @@
 <?php
 
 
-$errors = array('email' => '', 'name' => '', 'password' => '', 'repassword' => '');
-$email = $name = $password = $repassword = '';
+$errors = array('email' => '', 'username' => '', 'password' => '', 'repassword' => '');
+$email = $username = $password = $repassword = '';
 if (isset($_POST['submit'])) {
 
     if (empty($_POST['email'])) {
@@ -14,13 +14,13 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    if (empty($_POST['name'])) {
-        $errors['name'] =  'Name is empty <br>';
+    if (empty($_POST['username'])) {
+        $errors['username'] =  'Username is empty <br>';
     } else {
-        $name = $_POST['name'];
-        if (!preg_match('/(^[A-Za-z]{3,16})([ ]{0,1})([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})?([ ]{0,1})?([A-Za-z]{3,16})/', $name)) {
+        $username = $_POST['username'];
+        if (!preg_match('/^[A-Za-z]{1}[A-Za-z0-9]{5,31}$/', $username)) {
 
-            $errors['name'] =  'Name must be letters and spaces only <br>';
+            $errors['username'] =  'Username must be letters and spaces only <br>';
         }
     }
 
@@ -49,10 +49,10 @@ if (isset($_POST['submit'])) {
             echo "Error in $key => $val <br>";
         }
     } else {
-        if (isset($_POST['aggred'])) {
+        if (isset($_POST['agreed'])) {
             session_start();
             $_SESSION['email'] = $email;
-            header('Location:http://localhost/Web%20Project/index.php');
+            // header('Location:http://localhost/Web%20Project/index.php');
         } else {
             echo "Please check the accept checkbox";
         }
@@ -77,13 +77,13 @@ if (isset($_POST['submit'])) {
 
                                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                                <form class="mx-1 mx-md-4" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                                <form id="myForm" class="mx-1 mx-md-4" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
-                                            <input name="name" value="<?php echo htmlspecialchars($name); ?>" type="text" id="form3Example1c" class="form-control" />
-                                            <label class="form-label" for="form3Example1c">Your Name</label>
+                                            <input name="username" value="<?php echo htmlspecialchars($username); ?>" type="text" id="form3Example1c" class="form-control" />
+                                            <label class="form-label" for="form3Example1c">Username</label>
                                         </div>
                                     </div>
 
@@ -100,17 +100,17 @@ if (isset($_POST['submit'])) {
                                         <h6 class="mb-0 me-4 ms-3">Gender: </h6>
 
                                         <div class="form-check form-check-inline mb-0 me-4">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="femaleGender" value="option1" />
+                                            <input class="form-check-input" type="radio" id="femaleGender" value="Female" name="gender" />
                                             <label class="form-check-label" for="femaleGender">Female</label>
                                         </div>
 
                                         <div class="form-check form-check-inline mb-0 me-4">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="maleGender" value="option2" />
+                                            <input value="Male" class="form-check-input" type="radio" id="maleGender" value="Male" name="gender" />
                                             <label class="form-check-label" for="maleGender">Male</label>
                                         </div>
 
                                         <div class="form-check form-check-inline mb-0">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="otherGender" value="option3" />
+                                            <input value="Female" class="form-check-input" type="radio" id="otherGender" value="Other" name="gender" />
                                             <label class="form-check-label" for="otherGender">Other</label>
                                         </div>
 
@@ -133,14 +133,14 @@ if (isset($_POST['submit'])) {
                                     </div>
 
                                     <div class="form-check d-flex justify-content-center mb-5 terms-service">
-                                        <input name="aggred" class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                                        <label name="aggred" class="form-check-label" for="form2Example3">
+                                        <input name="agreed" class="form-check-input me-2" type="checkbox" id="form2Example3c" />
+                                        <label name="agreed" class="form-check-label" for="form2Example3">
                                             I agree all statements in <a href="#!">Terms of service</a>
                                         </label>
                                     </div>
 
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                        <input type="submit" value="Register" name="submit" class="btn btn-primary btn-lg">
+                                        <input id="signup_button" type="button" value="Register" name="submit" class="btn btn-primary btn-lg">
                                     </div>
 
                                 </form>
@@ -162,5 +162,59 @@ if (isset($_POST['submit'])) {
 
 <?php include "footer.php" ?>
 
+<script>
+    const documentId = (element) => {
+
+        return document.getElementById(element);
+    }
+    var signup_button = document.getElementById("signup_button");
+    signup_button.addEventListener('click', collect_data);
+
+    function collect_data() {
+        var myForm = documentId("myForm");
+        var inputs = myForm.getElementsByTagName("INPUT");
+        var data = {};
+        for (var i = inputs.length - 1; i >= 0; i--) {
+            var key = inputs[i].name;
+            switch (key) {
+                case "username":
+                    data.username = inputs[i].value;
+                    break;
+
+                case "email":
+                    data.email = inputs[i].value;
+                    break;
+
+                case "gender":
+                    if (inputs[i].checked) {
+                        data.gender = inputs[i].value;
+                    }
+                    break;
+
+                case "password":
+                    data.password = inputs[i].value;
+                    break;
+
+                case "repassword":
+                    data.repassword = inputs[i].value;
+                    break;
+            }
+        }
+        send_data(data, "signup");
+    }
+    const send_data = (data, type) => {
+        console.log("send data in");
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                alert(xhttp.responseText);
+            }
+        };
+        data.data_type = type;
+        var data_string = JSON.stringify(data);
+        xhttp.open("POST", "api.php", true);
+        xhttp.send(data_string);
+    }
+</script>
 
 </html>

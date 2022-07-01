@@ -1,13 +1,3 @@
-<?php
-
-session_start();
-
-echo "Welcome " . $_SESSION['email'];
-
-
-?>
-
-
 <!DOCTYPE html>
 
 <?php include "header.php" ?>

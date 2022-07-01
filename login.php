@@ -66,13 +66,13 @@ if (isset($_POST['submit'])) {
                             <h3 class="mb-5">Sign in</h3>
 
                             <div class="form-outline mb-4">
+                                <label class="form-label margin-label1" for="typeEmailX-2">Email</label>
                                 <input name="email" value="<?php echo htmlspecialchars($email); ?>" type="email" id="typeEmailX-2" class="form-control form-control-lg" />
-                                <label class="form-label" for="typeEmailX-2">Email</label>
                             </div>
 
                             <div class="form-outline mb-4">
+                                <label class="form-label margin-label2" for="typePasswordX-2">Password</label>
                                 <input name="password" value="<?php echo htmlspecialchars($password); ?>" type="password" id="typePasswordX-2" class="form-control form-control-lg" />
-                                <label class="form-label" for="typePasswordX-2">Password</label>
                             </div>
 
                             <!-- Checkbox -->
