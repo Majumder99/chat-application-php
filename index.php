@@ -5,12 +5,12 @@
 
 <div id="wrapper">
     <div id="left_pannel">
-        <div style="padding: 10px;">
+        <div id="user_info" style="padding: 10px;">
             <img id="profile-img" src="ui/images/user1.jpg" alt="No user">
             <br>
-            <h1 style="font-size: 18px; margin-bottom:-20px;">Keylly Hartmann</h1>
+            <h1 id="username" style="font-size: 18px; margin-bottom:-20px;">Username</h1>
             <br>
-            <span style="font-size: 15px; opacity:0.5;">keylly@gamil.com</span>
+            <span id="useremail" style="font-size: 15px; opacity:0.5;">email@gmail.com</span>
             <br>
             <br>
             <br>
@@ -41,24 +41,37 @@
 <?php include "footer.php"  ?>
 
 <script type="text/javascript">
-    function _(element) {
+    const get_element = (element) => {
         return document.getElementById(element)
     }
 
+    const get_data = (find, type) => {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                handle_result(xhttp.responseText, type);
+            }
+        };
+        var data = {};
+        data.find = find;
+        data.data_type = type;
+        data = JSON.stringify(data);
+        xhttp.open("POST", "api.php", true);
+        xhttp.send(data);
+    }
 
-    var label = _("label_chat");
-    label.addEventListener('click', function() {
-        var inner_pannel = _('inner_left_pannel');
-        var ajax = new XMLHttpRequest();
-        ajax.onload = function() {
+    const handle_result = (result, type) => {
+        if (result.trim() !== "") {
+            var obj = JSON.parse(result);
+            if (!obj.logged_in) {
+                window.location.assign("login.php")
+            } else {
 
-            if (ajax.status === 200 || ajax.readyState === 4) {
-                inner_pannel.innerHTML = ajax.responseText;
+                alert(result);
             }
         }
-        ajax.open("POST", "file.txt", true);
-        ajax.send();
-    })
+    }
+    get_data({}, "user_info");
 </script>
 
 

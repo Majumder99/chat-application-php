@@ -172,7 +172,7 @@ $email = $username = $password = $repassword = '';
         console.log("I am in handle result");
         var data = JSON.parse(result);
         if (data.data_type == "Successfull") {
-            window.location.assign("index.php")
+            window.location.assign("index.php");
         } else {
             var username = document.getElementById('username');
             var email = document.getElementById('email');
