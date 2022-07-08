@@ -66,7 +66,6 @@
             if (!obj.logged_in) {
                 window.location.assign("login.php")
             } else {
-
                 alert(result);
             }
         }

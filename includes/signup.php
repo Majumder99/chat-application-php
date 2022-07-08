@@ -1,4 +1,6 @@
 <?php
+$info = (object)[];
+
 $errors = array('email' => '', 'username' => '', 'password' => '', 'repassword' => '');
 $userid = uniqid();
 $username = $data_obj->username;

@@ -51,8 +51,7 @@ if (isset($_POST['submit'])) {
 
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 
 <?php include "header1.php" ?>
 
@@ -62,7 +61,7 @@ if (isset($_POST['submit'])) {
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
-                        <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                        <form id="myForm" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
                             <h3 class="mb-5">Sign in</h3>
 
                             <div class="form-outline mb-4">
@@ -81,7 +80,7 @@ if (isset($_POST['submit'])) {
                                 <label name="remember" class="form-check-label " for="form1Example3"> Remember password </label>
                             </div>
 
-                            <input type="submit" value="Login" name="submit" class="btn btn-primary btn-lg btn-block">
+                            <input type="button" value="Login" name="submit" class="btn btn-primary btn-lg btn-block" id="login_button">
                         </form>
 
 
@@ -91,20 +90,74 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </section>
-<!-- <div id="wrapper1" style="color: grey;">
-        <form action="">
-            <input type="text" name="username" placeholder="Username"><br>
-            <div style="padding: 10px;">
-                Gender<br>
-                <input type="radio" name="gender">Male</br>
-                <input type="radio" name="gender">Female</br>
-            </div>
-            <input type="password" name="password" placeholder="Password"><br>
-            <input type="password" name="password2" placeholder="ReType Password"><br>
-            <input type="submit" value="Sign Up"><br>
-        </form>
-    </div> -->
 
 <?php include "footer.php" ?>
+
+
+<script>
+    const documentId = (element) => {
+
+        return document.getElementById(element);
+    }
+    var login_button = document.getElementById("login_button");
+    login_button.addEventListener('click', collect_data);
+
+    function collect_data() {
+        login_button.disable = true;
+        login_button.value = 'Loading.....';
+        var myForm = documentId("myForm");
+        var inputs = myForm.getElementsByTagName("INPUT");
+        var data = {};
+        for (var i = inputs.length - 1; i >= 0; i--) {
+            var key = inputs[i].name;
+            switch (key) {
+                case "email":
+                    data.email = inputs[i].value;
+                    break;
+
+                case "password":
+                    data.password = inputs[i].value;
+                    break;
+
+            }
+            send_data(data, "login");
+        }
+    }
+    const send_data = (data, type) => {
+        console.log("send data in");
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                alert(xhttp.responseText);
+                // handle_result(xhttp.responseText);
+                login_button.disable = false;
+                login_button.value = 'Login';
+            }
+        };
+        data.data_type = type;
+        var data_string = JSON.stringify(data);
+        xhttp.open("POST", "api.php", true);
+        xhttp.send(data_string);
+    }
+    const handle_result = (result) => {
+        console.log("I am in handle result");
+        var data = JSON.parse(result);
+        if (data.data_type == "Successfull") {
+            window.location.assign("index.php");
+        } else {
+            // var username = document.getElementById('username');
+            // var email = document.getElementById('email');
+            // var password = document.getElementById('password');
+            // var repassword = document.getElementById('repassword');
+
+            // username.innerHTML = data.message.username;
+            // email.innerHTML = data.message.email;
+            // password.innerHTML = data.message.password;
+            // repassword.innerHTML = data.message.repassword;
+            console.log("Error")
+        }
+    }
+</script>
+
 
 </html>
