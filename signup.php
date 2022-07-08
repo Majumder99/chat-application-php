@@ -153,7 +153,6 @@ $email = $username = $password = $repassword = '';
         send_data(data, "signup");
     }
     const send_data = (data, type) => {
-        console.log("send data in");
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
@@ -169,7 +168,7 @@ $email = $username = $password = $repassword = '';
         xhttp.send(data_string);
     }
     const handle_result = (result) => {
-        console.log("I am in handle result");
+        console.log(result);
         var data = JSON.parse(result);
         if (data.data_type == "Successfull") {
             window.location.assign("index.php");

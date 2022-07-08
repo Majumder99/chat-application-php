@@ -48,7 +48,7 @@ if (array_filter($errors)) {
     $info->data_type = 'Error';
     echo json_encode($info);
 } else {
-    $sql = "INSERT INTO `usertable`( `userid`, `username`, `email`, `password`, `date`) VALUES ('$userid','$username','$email','$password','$date')";
+    $sql = "INSERT INTO `usertable`( `userid`, `username`, `email`, `password`, `date`) VALUES ('$userid','$username','$email','$password','$date');";
     $connect = mysqli_query($conn, $sql);
 
     if ($connect) {

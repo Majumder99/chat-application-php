@@ -62,8 +62,9 @@
 
     const handle_result = (result, type) => {
         if (result.trim() !== "") {
-            var obj = JSON.parse(result);
+            let obj = JSON.parse(result);
             if (!obj.logged_in) {
+                alert(result);
                 window.location.assign("login.php")
             } else {
                 alert(result);

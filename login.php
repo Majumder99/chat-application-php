@@ -1,52 +1,6 @@
 <?php
-
-
-$errors = array('email' => '', 'password' => '');
 $email = $password = '';
-if (isset($_POST['submit'])) {
-
-    if (empty($_POST['email'])) {
-        // echo 'Email is empty <br>';
-        $errors['email'] = 'Email is empty <br>';
-    } else {
-        // echo htmlspecialchars($_POST['email']);
-        $email = $_POST['email'];
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            // echo "Email must be a valid email address";
-            $errors['email'] = "Email must be a valid email address";
-        }
-    }
-
-
-    if (empty($_POST['password'])) {
-        // echo 'Ingredients is empty <br>';
-        $errors['password']  = 'Password is empty <br>';
-    } else {
-        // echo htmlspecialchars($_POST['ingredients']);
-        $password = $_POST['password'];
-        if (!preg_match('/^\S*(?=\S{8,})(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/', $password)) {
-            // echo 'Ingredients must be comma separated <br>';
-            $errors['password']  = 'Password must be filled <br>';
-        }
-    }
-
-    if (array_filter($errors)) {
-        // echo 'There is error';
-        foreach ($errors as $key => $val) {
-            echo "Error in $key => $val <br>";
-        }
-    } else {
-        if (isset($_POST['remember'])) {
-            setcookie('email', $email, time() + 3600);
-            setcookie('password', $password, time() + 3600);
-            session_start();
-            $_SESSION['email'] = $email;
-            header('Location:http://localhost/Web%20Project/index.php');
-        }
-    }
-}
 ?>
-
 
 
 
@@ -67,11 +21,13 @@ if (isset($_POST['submit'])) {
                             <div class="form-outline mb-4">
                                 <label class="form-label margin-label1" for="typeEmailX-2">Email</label>
                                 <input name="email" value="<?php echo htmlspecialchars($email); ?>" type="email" id="typeEmailX-2" class="form-control form-control-lg" />
+                                <div style="color: red;" id="email"></div>
                             </div>
 
                             <div class="form-outline mb-4">
                                 <label class="form-label margin-label2" for="typePasswordX-2">Password</label>
                                 <input name="password" value="<?php echo htmlspecialchars($password); ?>" type="password" id="typePasswordX-2" class="form-control form-control-lg" />
+                                <div style="color: red;" id="password"></div>
                             </div>
 
                             <!-- Checkbox -->
@@ -82,8 +38,6 @@ if (isset($_POST['submit'])) {
 
                             <input type="button" value="Login" name="submit" class="btn btn-primary btn-lg btn-block" id="login_button">
                         </form>
-
-
                     </div>
                 </div>
             </div>
@@ -118,43 +72,35 @@ if (isset($_POST['submit'])) {
                 case "password":
                     data.password = inputs[i].value;
                     break;
-
             }
-            send_data(data, "login");
         }
+        send_data(data, "login");
     }
     const send_data = (data, type) => {
-        console.log("send data in");
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-                alert(xhttp.responseText);
-                // handle_result(xhttp.responseText);
+                handle_result(xhttp.responseText);
                 login_button.disable = false;
                 login_button.value = 'Login';
             }
         };
         data.data_type = type;
-        var data_string = JSON.stringify(data);
+        var data = JSON.stringify(data);
         xhttp.open("POST", "api.php", true);
-        xhttp.send(data_string);
+        xhttp.send(data);
     }
     const handle_result = (result) => {
-        console.log("I am in handle result");
         var data = JSON.parse(result);
         if (data.data_type == "Successfull") {
             window.location.assign("index.php");
         } else {
-            // var username = document.getElementById('username');
-            // var email = document.getElementById('email');
-            // var password = document.getElementById('password');
-            // var repassword = document.getElementById('repassword');
+            // alert(data.message);
+            var email = document.getElementById('email');
+            var password = document.getElementById('password');
 
-            // username.innerHTML = data.message.username;
-            // email.innerHTML = data.message.email;
-            // password.innerHTML = data.message.password;
-            // repassword.innerHTML = data.message.repassword;
-            console.log("Error")
+            email.innerHTML = data.email;
+            password.innerHTML = data.password;
         }
     }
 </script>
