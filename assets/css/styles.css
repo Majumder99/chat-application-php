@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Yellowtail&display=swap");
 #wrapper {
-  max-width: 1000px;
+  max-width: 1200px;
   min-height: 790px;
   display: flex;
   margin: auto;
@@ -129,4 +129,15 @@ input[type="radio"] {
 }
 .red-text {
   color: red !important;
+}
+
+#contact {
+  width: 150px;
+  display: inline-block;
+  height: 170px;
+  margin: 10px;
+  vertical-align: top;
+}
+#contact img {
+  width: 100% !important;
 }

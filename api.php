@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 if (!isset($_SESSION['userid'])) {
-    if (!isset($data_obj->data_type) && $data_obj->data_type != 'login') {
+    if (isset($data_obj->data_type) && $data_obj->data_type != 'login' && $data_obj->data_type != 'signup') {
         $info->logged_in = false;
         echo json_encode($info);
         die;

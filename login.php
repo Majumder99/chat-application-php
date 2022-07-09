@@ -37,6 +37,8 @@ $email = $password = '';
                             </div>
 
                             <input type="button" value="Login" name="submit" class="btn btn-primary btn-lg btn-block" id="login_button">
+                            <br>
+                            <span>Don't have an account?</span> <a href="signup.php">Signup here</a>
                         </form>
                     </div>
                 </div>

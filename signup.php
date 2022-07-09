@@ -10,7 +10,7 @@ $email = $username = $password = $repassword = '';
 
 <?php include "header1.php" ?>
 
-<section class="vh-100 mb-5 mt-5">
+<section class="vh-100 mb-5 mt-5 section_bottom">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-lg-12 col-xl-11">
@@ -90,7 +90,9 @@ $email = $username = $password = $repassword = '';
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                         <input id="signup_button" type="button" value="Register" name="submit" class="btn btn-primary btn-lg">
                                     </div>
-
+                                    <div style="text-align: center;">
+                                        <span>Already have an account?</span> <a href="login.php">Sign in here</a>
+                                    </div>
                                 </form>
 
                             </div>

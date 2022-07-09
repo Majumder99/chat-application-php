@@ -19,9 +19,9 @@
                 <label id="label_chat" for="radio_chat">Chat <img src="ui/icons/chat.png" alt=""></label>
                 <label id="label_contacts" for="radio_contacts">Contacts <img src="ui/icons/contacts.png" alt=""></label>
                 <label id="label_settings" for="radio_settings">Settings <img src="ui/icons/settings.png" alt=""></label>
+                <label id="logout" for="radio_logout">Logout <img src="ui/icons/search-icon.png" alt=""></label>
             </div>
         </div>
-        <input class="btn btn-primary btn-lg" type="button" value="Logout" id="logout">
     </div>
     <div id="right_pannel">
         <div id="header">
@@ -29,6 +29,20 @@
         </div>
         <div id="container">
             <div style="text-align: center ;" id="inner_left_pannel">
+                <div class="new_div" style="text-align: center;">
+                    <div id="contact">
+                        <img src="ui/images/user1.jpg" alt="">
+                        <br>Username
+                    </div>
+                    <div id="contact">
+                        <img src="ui/images/user2.jpg" alt="">
+                        <br>Username
+                    </div>
+                    <div id="contact">
+                        <img src="ui/images/user3.jpg" alt="">
+                        <br>Username
+                    </div>
+                </div>
             </div>
             <input type="radio" name="myradio" id="radio_chat" style="display:none;">
             <input type="radio" name="myradio" id="radio_contacts" style="display:none;">
@@ -47,7 +61,10 @@
     }
     var logout = get_element('logout');
     logout.addEventListener('click', () => {
-        get_data({}, 'logout')
+        var answer = confirm("Are you sure you want to log out??");
+        if (answer) {
+            get_data({}, 'logout')
+        }
         // console.log('hello')
     })
     const get_data = (find, type) => {
@@ -68,6 +85,7 @@
     const handle_result = (result, type) => {
         if (result.trim() !== "") {
             let obj = JSON.parse(result);
+            // typeof(obj.logged_in) !== "undefined" &&
             if (typeof(obj.logged_in) !== "undefined" && !obj.logged_in) {
                 alert(result);
                 window.location.assign("login.php")

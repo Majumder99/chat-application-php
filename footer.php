@@ -6,6 +6,7 @@
     text-align: center;
     padding-top:10px;
     padding-bottom:10px;
+    margin-top: 200px;
 ">
     <p>Sourav Majumder &copy; 2022-23</p>
 </div>
