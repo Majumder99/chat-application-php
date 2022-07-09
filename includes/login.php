@@ -1,4 +1,9 @@
 <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $info = (object)[];
 
 $email = $data_obj->email;
@@ -18,6 +23,7 @@ if ($conn && !empty($email)) {
                     echo json_encode($info);
                 } else {
                     if ($result['password'] == $password) {
+                        $_SESSION['userid'] = $result['userid'];
                         $info->message = "Connect Successfully";
                         $info->email = "";
                         $info->password = "";

@@ -21,6 +21,7 @@
                 <label id="label_settings" for="radio_settings">Settings <img src="ui/icons/settings.png" alt=""></label>
             </div>
         </div>
+        <input class="btn btn-primary btn-lg" type="button" value="Logout" id="logout">
     </div>
     <div id="right_pannel">
         <div id="header">
@@ -44,7 +45,11 @@
     const get_element = (element) => {
         return document.getElementById(element)
     }
-
+    var logout = get_element('logout');
+    logout.addEventListener('click', () => {
+        get_data({}, 'logout')
+        // console.log('hello')
+    })
     const get_data = (find, type) => {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
@@ -63,11 +68,20 @@
     const handle_result = (result, type) => {
         if (result.trim() !== "") {
             let obj = JSON.parse(result);
-            if (!obj.logged_in) {
+            if (typeof(obj.logged_in) !== "undefined" && !obj.logged_in) {
                 alert(result);
                 window.location.assign("login.php")
             } else {
-                alert(result);
+                // alert(result);
+                switch (obj.data_type) {
+                    case 'user_info':
+                        var username = get_element('username');
+                        var useremail = get_element('useremail');
+
+                        username.innerText = obj.username;
+                        useremail.innerText = obj.email;
+                        break;
+                }
             }
         }
     }
