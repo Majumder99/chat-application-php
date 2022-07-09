@@ -29,20 +29,7 @@
         </div>
         <div id="container">
             <div style="text-align: center ;" id="inner_left_pannel">
-                <div class="new_div" style="text-align: center;">
-                    <div id="contact">
-                        <img src="ui/images/user1.jpg" alt="">
-                        <br>Username
-                    </div>
-                    <div id="contact">
-                        <img src="ui/images/user2.jpg" alt="">
-                        <br>Username
-                    </div>
-                    <div id="contact">
-                        <img src="ui/images/user3.jpg" alt="">
-                        <br>Username
-                    </div>
-                </div>
+
             </div>
             <input type="radio" name="myradio" id="radio_chat" style="display:none;">
             <input type="radio" name="myradio" id="radio_contacts" style="display:none;">
@@ -52,6 +39,7 @@
         </div>
     </div>
 </div>
+</div>
 
 <?php include "footer.php"  ?>
 
@@ -59,6 +47,22 @@
     const get_element = (element) => {
         return document.getElementById(element)
     }
+    var label_contacts = get_element('label_contacts');
+    label_contacts.addEventListener('click', () => {
+        get_data({}, 'contacts');
+    })
+
+    var label_chat = get_element('label_chat');
+    label_chat.addEventListener('click', () => {
+        get_data({}, 'chats');
+    })
+
+    var label_settings = get_element('label_settings');
+    label_settings.addEventListener('click', () => {
+        get_data({}, 'settings');
+    })
+
+
     var logout = get_element('logout');
     logout.addEventListener('click', () => {
         var answer = confirm("Are you sure you want to log out??");
@@ -98,6 +102,21 @@
 
                         username.innerText = obj.username;
                         useremail.innerText = obj.email;
+                        break;
+
+                    case 'contacts':
+                        var inner_left_pannel = get_element('inner_left_pannel');
+                        inner_left_pannel.innerHTML = obj.message;
+                        break;
+
+                    case 'chats':
+                        var inner_left_pannel = get_element('inner_left_pannel');
+                        inner_left_pannel.innerHTML = obj.message;
+                        break;
+
+                    case 'settings':
+                        var inner_left_pannel = get_element('inner_left_pannel');
+                        inner_left_pannel.innerHTML = obj.message;
                         break;
                 }
             }

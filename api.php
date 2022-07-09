@@ -24,11 +24,18 @@ if (isset($data_obj->data_type) && $data_obj->data_type == 'signup') {
     //login
     include "includes/login.php";
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'user_info') {
-    //user info
+    //user_info
     include "includes/user_info.php";
-    // echo $_SESSION['userid'];
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'logout') {
-    //user info
+    //logout
     include "includes/logout.php";
-    // echo $_SESSION['userid'];
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'contacts') {
+    //contacts
+    include "includes/contacts.php";
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'chats') {
+    //chats
+    include "includes/chats.php";
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'settings') {
+    //settings
+    include "includes/settings.php";
 }

@@ -137,6 +137,7 @@ input[type="radio"] {
   height: 170px;
   margin: 10px;
   vertical-align: top;
+  overflow: hidden;
 }
 #contact img {
   width: 100% !important;
