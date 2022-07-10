@@ -94,7 +94,7 @@ if ($connect) {
                                                 I agree all statements in <a href="#!">Terms of service</a>
                                             </label>
                                         </div>
-                                        <input id="save_settings_button" type="button" value="Save Settings" name="submit" class="btn btn-primary btn-lg">
+                                        <input id="save_settings_button" type="button" value="Save Settings" name="submit" onclick="collect_data()" class="btn btn-primary btn-lg">
                                     </form>
                             </div>
                     </div>
@@ -102,85 +102,6 @@ if ($connect) {
         </div>
     </div>
 </div>
-
-<script>
-    const documentId = (element) => {
-
-        return document.getElementById(element);
-    }
-    var save_settings_button = document.getElementById("save_settings_button");
-    save_settings_button.addEventListener("click", collect_data);
-
-    function collect_data() {
-        save_settings_button.disable = true;
-        save_settings_button.value = "Loading.....";
-        var myForm = documentId("myForm");
-        var inputs = myForm.getElementsByTagName("INPUT");
-        var data = {};
-        for (var i = inputs.length - 1; i >= 0; i--) {
-            var key = inputs[i].name;
-            switch (key) {
-                case "username":
-                    data.username = inputs[i].value;
-                    break;
-
-                case "email":
-                    data.email = inputs[i].value;
-                    break;
-
-                case "gender":
-                    if (inputs[i].checked) {
-                        data.gender = inputs[i].value;
-                    }
-                    break;
-                case "password":
-                    data.password = inputs[i].value;
-                    break;
-
-                case "repassword":
-                    data.repassword = inputs[i].value;
-                    break;
-            }
-        }
-        send_data(data, "save_settings");
-    }
-    const send_data = (data, type) => {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = () => {
-            if (xhttp.readyState == 4 && xhttp.status == 200) {
-                // alert(xhttp.responseText);
-                handle_result(xhttp.responseText);
-                signup_button.disable = false;
-                signup_button.value = "Save Settings";
-            }
-        };
-        data.data_type = type;
-        var data_string = JSON.stringify(data);
-        console.log(data_string)
-        xhttp.open("POST", "api.php", true);
-        xhttp.send(data_string);
-    }
-    const handle_result = (result) => {
-        console.log(result);
-        var data = JSON.parse(result);
-        if (data.data_type == "Successfull") {
-            alert("Settings saveed successfully");
-        } else {
-            var username = documentId("username");
-            var email = documentId("email");
-            var password = documentId("password");
-            var repassword = documentId("repassword");
-            var gender_part = documentId("gender_part");
-
-
-            username.innerHTML = data.message.username;
-            email.innerHTML = data.message.email;
-            password.innerHTML = data.message.password;
-            repassword.innerHTML = data.message.repassword;
-            gender_part.innerHTML = data.message.gender;
-        }
-    }
-</script>
 
 ';
     }

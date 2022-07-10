@@ -40,7 +40,7 @@ if (isset($data_obj->data_type) && $data_obj->data_type == 'signup') {
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'settings') {
     //settings
     include "includes/settings.php";
-} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'settings') {
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'save_settings') {
     //settings
-    include "includes/settings.php";
+    include "includes/save_settings.php";
 }

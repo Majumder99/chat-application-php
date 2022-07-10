@@ -51,6 +51,8 @@
     const get_element = (element) => {
         return document.getElementById(element)
     }
+
+
     var label_contacts = get_element('label_contacts');
     label_contacts.addEventListener('click', () => {
         get_data({}, 'contacts');
@@ -128,12 +130,75 @@
                         var inner_left_pannel = get_element('inner_left_pannel');
                         inner_left_pannel.innerHTML = obj.message;
                         break;
+                    case 'save_settings':
+                        // alert(obj.message);
+                        console.log(obj.message);
+                        get_data({}, "user_info");
+                        get_data({}, 'settings');
+                        // window.location.assign("index.php")
+                        break;
                 }
             }
         }
     }
     get_data({}, "user_info");
 </script>
+
+<script>
+    function collect_data() {
+        var save_settings_button = get_element("save_settings_button");
+        save_settings_button.disable = true;
+        save_settings_button.value = "Loading.....";
+        var myForm = get_element("myForm");
+        var inputs = myForm.getElementsByTagName("INPUT");
+        var data = {};
+        for (var i = inputs.length - 1; i >= 0; i--) {
+            var key = inputs[i].name;
+            switch (key) {
+                case "username":
+                    data.username = inputs[i].value;
+                    break;
+
+                case "email":
+                    data.email = inputs[i].value;
+                    break;
+
+                case "gender":
+                    if (inputs[i].checked) {
+                        data.gender = inputs[i].value;
+                    }
+                    break;
+                case "password":
+                    data.password = inputs[i].value;
+                    break;
+
+                case "repassword":
+                    data.repassword = inputs[i].value;
+                    break;
+            }
+        }
+        send_data(data, "save_settings");
+    }
+    const send_data = (data, type) => {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                // alert(xhttp.responseText);
+                var save_settings_button = get_element("save_settings_button");
+                handle_result(xhttp.responseText);
+                save_settings_button.disable = false;
+                save_settings_button.value = "Save Settings";
+            }
+        };
+        data.data_type = type;
+        var data_string = JSON.stringify(data);
+        // console.log(data_string)
+        xhttp.open("POST", "api.php", true);
+        xhttp.send(data_string);
+    }
+</script>
+
+
 
 
 
