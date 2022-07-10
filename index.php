@@ -6,7 +6,10 @@
 <div id="wrapper">
     <div id="left_pannel">
         <div id="user_info" style="padding: 10px;">
-            <img id="profile-img" src="ui/images/user1.jpg" alt="No user">
+            <img id="profile_img" class="img_edit" src="ui/images/user1.jpg" alt="No user" style="
+    border-radius: 50%;
+    width: 100px;
+">
             <br>
             <h1 id="username" style="font-size: 18px; margin-bottom:-20px;">Username</h1>
             <br>
@@ -104,7 +107,9 @@
                     case 'user_info':
                         var username = get_element('username');
                         var useremail = get_element('useremail');
+                        var profile_img = get_element('profile_img');
 
+                        profile_img.src = obj.pro_image;
                         username.innerText = obj.username;
                         useremail.innerText = obj.email;
                         break;

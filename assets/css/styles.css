@@ -154,3 +154,9 @@ input[type="radio"] {
 .loader_on img {
   width: 70px;
 }
+.section_bottom {
+  color: black !important;
+}
+#myForm {
+  color: black !important;
+}
