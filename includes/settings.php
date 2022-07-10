@@ -3,7 +3,6 @@
 $myData =
     'settings go here';
 
-// $result = (object)mysqli_fetch_assoc($connect);
 $info = (object)[];
 
 $info->message = $myData;

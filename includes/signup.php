@@ -1,7 +1,8 @@
 <?php
+
 $info = (object)[];
 
-$errors = array('email' => '', 'username' => '', 'password' => '', 'repassword' => '');
+$errors = array('email' => '', 'username' => '', 'password' => '', 'repassword' => '', 'gender' => '');
 $userid = uniqid();
 $username = $data_obj->username;
 if (empty($username)) {
@@ -12,9 +13,15 @@ if (empty($username)) {
         $errors['username'] = 'Username must be letters and spaces only <br>';
     }
 }
+
+$gender = isset($data_obj->gender) ? $data_obj->gender : null;
+if (empty($gender)) {
+    $errors['gender'] = 'Please select a gender';
+}
+
 $email = $data_obj->email;
 if (empty($email)) {
-    $errors['email'] = 'Email is empty <br>';
+    $errors['email'] = 'Email is empty';
 } else {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = "Email must be a valid email address";
@@ -22,19 +29,19 @@ if (empty($email)) {
 }
 $password = $data_obj->password;
 if (empty($password)) {
-    $errors['password'] = 'Password is empty <br>';
+    $errors['password'] = 'Password is empty';
 } else {
     if (!preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/', $password)) {
 
-        $errors['password'] = 'Password must according to the rules <br>';
+        $errors['password'] = 'Password must according to the rules';
     }
 }
 $repassword = $data_obj->repassword;
 if (empty($repassword)) {
-    $errors['repassword'] = 'Re-Password is empty <br>';
+    $errors['repassword'] = 'Re-Password is empty';
 } else {
     if (strcmp($password, $repassword)) {
-        $errors['repassword'] = 'Repassword and password must be equal <br>';
+        $errors['repassword'] = 'Repassword and password must be equal';
     }
 }
 
@@ -48,7 +55,7 @@ if (array_filter($errors)) {
     $info->data_type = 'Error';
     echo json_encode($info);
 } else {
-    $sql = "INSERT INTO `usertable`( `userid`, `username`, `email`, `password`, `date`) VALUES ('$userid','$username','$email','$password','$date');";
+    $sql = "INSERT INTO `usertable`( `userid`, `username`, `email`, `gender`, `password`, `date`) VALUES ('$userid','$username','$email', '$gender', '$password','$date');";
     $connect = mysqli_query($conn, $sql);
 
     if ($connect) {

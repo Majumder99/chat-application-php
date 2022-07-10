@@ -132,13 +132,13 @@ input[type="radio"] {
 }
 
 #contact {
-  width: 150px;
+  width: 100px;
+  height: 120px;
   display: inline-block;
-  height: 170px;
   margin: 10px;
   vertical-align: top;
-  overflow: hidden;
 }
 #contact img {
-  width: 100% !important;
+  width: 100px;
+  height: 100px;
 }

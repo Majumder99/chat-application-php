@@ -5,6 +5,8 @@ $info = (object)[];
 include 'connection/connection.php';
 $data = file_get_contents("php://input");
 $data_obj = json_decode($data);
+
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

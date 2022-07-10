@@ -87,6 +87,7 @@
     }
 
     const handle_result = (result, type) => {
+        console.log(result)
         if (result.trim() !== "") {
             let obj = JSON.parse(result);
             // typeof(obj.logged_in) !== "undefined" &&

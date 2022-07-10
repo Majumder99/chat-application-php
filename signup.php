@@ -1,6 +1,6 @@
 <?php
 
-$email = $username = $password = $repassword = '';
+$email = $username = $password = $repassword = $gender = '';
 
 ?>
 
@@ -46,22 +46,22 @@ $email = $username = $password = $repassword = '';
                                         <h6 class="mb-0 me-4 ms-3">Gender: </h6>
 
                                         <div class="form-check form-check-inline mb-0 me-4">
-                                            <input class="form-check-input" type="radio" id="femaleGender" value="Female" name="gender" />
-                                            <label class="form-check-label" for="femaleGender">Female</label>
+                                            <input class="form-check-input" type="radio" id="gender_male" value="Male" name="gender" />
+                                            <label class="form-check-label" for="gender_male">Male</label>
                                         </div>
 
                                         <div class="form-check form-check-inline mb-0 me-4">
-                                            <input value="Male" class="form-check-input" type="radio" id="maleGender" value="Male" name="gender" />
-                                            <label class="form-check-label" for="maleGender">Male</label>
+                                            <input class="form-check-input" type="radio" id="gender_female" value="Female" name="gender" />
+                                            <label class="form-check-label" for="gender_female">Female</label>
                                         </div>
 
-                                        <div class="form-check form-check-inline mb-0">
+                                        <!-- <div class="form-check form-check-inline mb-0">
                                             <input value="Female" class="form-check-input" type="radio" id="otherGender" value="Other" name="gender" />
                                             <label class="form-check-label" for="otherGender">Other</label>
-                                        </div>
-
+                                        </div> -->
                                     </div>
-
+                                    <div class="red-text" id="gender_part" style="margin-left: 14px;margin-top: -16px;margin-bottom: 30px;">
+                                    </div>
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                         <div class="form-outline flex-fill mb-0">
@@ -82,7 +82,7 @@ $email = $username = $password = $repassword = '';
 
                                     <div class="form-check d-flex justify-content-center mb-5 terms-service">
                                         <input name="agreed" class="form-check-input me-2" type="checkbox" id="form2Example3c" />
-                                        <label name="agreed" class="form-check-label" for="form2Example3">
+                                        <label name="agreed" class="form-check-label" for="form2Example3c">
                                             I agree all statements in <a href="#!">Terms of service</a>
                                         </label>
                                     </div>
@@ -142,7 +142,6 @@ $email = $username = $password = $repassword = '';
                         data.gender = inputs[i].value;
                     }
                     break;
-
                 case "password":
                     data.password = inputs[i].value;
                     break;
@@ -166,6 +165,7 @@ $email = $username = $password = $repassword = '';
         };
         data.data_type = type;
         var data_string = JSON.stringify(data);
+        console.log(data_string)
         xhttp.open("POST", "api.php", true);
         xhttp.send(data_string);
     }
@@ -173,17 +173,20 @@ $email = $username = $password = $repassword = '';
         console.log(result);
         var data = JSON.parse(result);
         if (data.data_type == "Successfull") {
-            window.location.assign("index.php");
+            window.location.assign("login.php");
         } else {
-            var username = document.getElementById('username');
-            var email = document.getElementById('email');
-            var password = document.getElementById('password');
-            var repassword = document.getElementById('repassword');
+            var username = documentId('username');
+            var email = documentId('email');
+            var password = documentId('password');
+            var repassword = documentId('repassword');
+            var gender_part = documentId('gender_part');
+
 
             username.innerHTML = data.message.username;
             email.innerHTML = data.message.email;
             password.innerHTML = data.message.password;
             repassword.innerHTML = data.message.repassword;
+            gender_part.innerHTML = data.message.gender;
         }
     }
 </script>
