@@ -52,6 +52,7 @@
   font-size: 40px;
   text-align: center;
   font-family: "Yellowtail", cursive;
+  position: relative;
 }
 #header1 {
   background-color: #485b6c;
@@ -141,4 +142,15 @@ input[type="radio"] {
 #contact img {
   width: 100px;
   height: 100px;
+}
+
+.loader_on {
+  position: absolute;
+  width: 30%;
+}
+.loader_off {
+  display: none;
+}
+.loader_on img {
+  width: 70px;
 }

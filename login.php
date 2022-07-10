@@ -93,6 +93,7 @@ $email = $password = '';
         xhttp.send(data);
     }
     const handle_result = (result) => {
+        console.log(result);
         var data = JSON.parse(result);
         if (data.data_type == "Successfull") {
             window.location.assign("index.php");

@@ -25,6 +25,7 @@
     </div>
     <div id="right_pannel">
         <div id="header">
+            <!-- <div id="loader_auto"><img src="ui/icons/giphy.gif" alt=""></div> -->
             My Chat
         </div>
         <div id="container">
@@ -73,8 +74,11 @@
     })
     const get_data = (find, type) => {
         var xhttp = new XMLHttpRequest();
+        // var loader_auto = get_element('loader_auto');
+        // loader_auto.className = 'loader_on';
         xhttp.onreadystatechange = function() {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
+                // loader_auto.className = 'loader_off';
                 handle_result(xhttp.responseText, type);
             }
         };

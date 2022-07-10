@@ -1,15 +1,9 @@
 <?php
-
-// while ($result = mysqli_fetch_assoc($connect))
-
 $sql = 'SELECT * FROM `usertable` LIMIT 10;';
 $connect = mysqli_query($conn, $sql);
 if ($connect) {
-    // $result = mysqli_fetch_assoc($connect);
     $num = mysqli_num_rows($connect);
     $myData = '<div class="new_div" style="text-align: center;">';
-
-
     while ($result = mysqli_fetch_assoc($connect)) {
         $userName = $result['username'];
         $image = ($result['gender'] == 'Male')  ? 'ui/images/user1.jpg' : 'ui/images/user2.jpg';
@@ -19,15 +13,8 @@ if ($connect) {
         $myData .= "<div id='contact'>
                          <img src='$image' alt=''>
                         <br>$userName
-                     </div>";
+                    </div>";
     }
-    // for ($i = 0; $i < $num; $i++) {
-    //     $myData .= '<div id="contact">
-    //                     <img src="ui/images/user1.jpg" alt="">
-    //                     <br>Username
-    //                 </div>';
-    // }
-
     $myData .= '</div>';
 }
 
