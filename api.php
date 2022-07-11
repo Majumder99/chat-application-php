@@ -43,4 +43,8 @@ if (isset($data_obj->data_type) && $data_obj->data_type == 'signup') {
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'save_settings') {
     //settings
     include "includes/save_settings.php";
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'change_profile_image') {
+    //settings
+    // include "includes/save_settings.php";
+    echo "from file save";
 }

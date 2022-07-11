@@ -8,7 +8,8 @@
         <div id="user_info" style="padding: 10px;">
             <img id="profile_img" class="img_edit" src="ui/images/user1.jpg" alt="No user" style="
     border-radius: 50%;
-    width: 100px;
+    width: 100px !important;
+    height: 100px !important;
 ">
             <br>
             <h1 id="username" style="font-size: 18px; margin-bottom:-20px;">Username</h1>
@@ -137,6 +138,13 @@
                         get_data({}, 'settings');
                         // window.location.assign("index.php")
                         break;
+                    case 'change_profile_image':
+                        // alert(obj.message);
+                        // console.log(obj.message);
+                        get_data({}, "user_info");
+                        get_data({}, 'settings');
+                        // window.location.assign("index.php")
+                        break;
                 }
             }
         }
@@ -195,6 +203,33 @@
         // console.log(data_string)
         xhttp.open("POST", "api.php", true);
         xhttp.send(data_string);
+    }
+
+    const upload_images = (files) => {
+        console.log(files[0]);
+
+        var change_image_input = get_element("change_image_input");
+        change_image_input.disable = true;
+        change_image_input.innerHTML = "Uploading Image....";
+
+        var myForm = new FormData();
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                // console.log(xhttp.responseText);
+                handle_result(xhttp.responseText);
+                change_image_input.disable = false;
+                change_image_input.innerHTML = "Save Settings";
+            }
+        };
+
+        myForm.append('data_type', "change_profile_image");
+        myForm.append('file', files[0]);
+
+        // console.log(data_string)
+        xhttp.open("POST", "uploader.php", true);
+        xhttp.send(myForm);
     }
 </script>
 

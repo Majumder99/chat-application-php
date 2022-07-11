@@ -32,7 +32,10 @@ if ($connect) {
                     <div style="display: flex;">
                             <div style="margin-left: -40px;">
                                 <img src="' . $image . '" style="width:150px;height:150px;margin:10px;"/>   
-                                <input id="signup_button" type="button" value="Change Image" name="submit" class="btn btn-primary btn-lg">
+                                <label id="change_image" for="change_image_input" class="btn btn-primary btn-md">
+                                    Change Image
+                                </label>
+                                <input id="change_image_input" type="file" onchange="upload_images(this.files)" name="submit" style="display:none;">
                             </div>                            
                             <div>
                                     <form id="myForm" class="mx-4 text-white">
