@@ -212,6 +212,8 @@
         change_image_input.disable = true;
         change_image_input.innerHTML = "Uploading Image....";
 
+        // console.log("after var");
+
         var myForm = new FormData();
 
         var xhttp = new XMLHttpRequest();
@@ -228,8 +230,27 @@
         myForm.append('file', files[0]);
 
         // console.log(data_string)
+        // console.log("sending files");
         xhttp.open("POST", "uploader.php", true);
         xhttp.send(myForm);
+    }
+
+    const handle_drag_image = (e) => {
+        // console.log(e.type);
+        if (e.type === 'dragover') {
+            e.preventDefault();
+            e.target.className = 'dragging';
+        } else if (e.type === 'dragleave') {
+            e.preventDefault();
+            e.target.className = 'nodragging';
+        } else if (e.type === 'drop') {
+            e.preventDefault();
+            e.target.className = 'dragging';
+            // console.log(e.dataTransfer.files);
+            upload_images(e.dataTransfer.files);
+        } else {
+            e.target.className = '';
+        }
     }
 </script>
 

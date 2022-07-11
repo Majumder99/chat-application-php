@@ -160,3 +160,6 @@ input[type="radio"] {
 #myForm {
   color: black !important;
 }
+.dragging {
+  border: 2px dashed #aaa;
+}

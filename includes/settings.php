@@ -25,13 +25,21 @@ if ($connect) {
             $gender_female = "checked";
         }
         $myData = '
+        <style>
+        .dragging{
+            border: 2px dashed #aaa;
+        }
+        .nodragging{
+            border: none;
+        }
+        </style>
 <div class="card text-black" style="border-radius: 25px;margin:50px;">
         <div class="card-body p-md-5">
             <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1"> 
                     <div style="display: flex;">
                             <div style="margin-left: -40px;">
-                                <img src="' . $image . '" style="width:150px;height:150px;margin:10px;"/>   
+                                <img ondragover="handle_drag_image(event)" ondragleave="handle_drag_image(event)" ondrop="handle_drag_image(event)" src="' . $image . '" style="width:150px;height:150px;margin:10px;"/>   
                                 <label id="change_image" for="change_image_input" class="btn btn-primary btn-md">
                                     Change Image
                                 </label>
@@ -108,26 +116,15 @@ if ($connect) {
 
 ';
     }
+
+    $info = (object)[];
+
+    $info->message = $myData;
+    $info->data_type = 'settings';
+    echo json_encode($info);
 } else {
+
+    $info->message = "No contacts were found";
+    $info->data_type = "Error";
+    echo json_encode($info);
 }
-
-
-
-
-$info = (object)[];
-
-$info->message = $myData;
-$info->data_type = 'settings';
-echo json_encode($info);
-
-die;
-
-$info->message = "No contacts were found";
-$info->data_type = "Error";
-echo json_encode($info);
-?>
-
-
-<html>
-
-</html>
