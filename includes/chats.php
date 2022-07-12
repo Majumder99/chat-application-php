@@ -1,7 +1,6 @@
 <?php
 
-$myData =
-    'chats go here';
+$myData = $data_object;
 
 // $result = (object)mysqli_fetch_assoc($connect);
 $info = (object)[];

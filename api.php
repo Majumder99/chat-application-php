@@ -36,7 +36,45 @@ if (isset($data_obj->data_type) && $data_obj->data_type == 'signup') {
     include "includes/contacts.php";
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'chats') {
     //chats
-    include "includes/chats.php";
+    // include "includes/chats.php";
+    $myId = $data_obj->find;
+    $myData = '';
+    $sql = "SELECT * FROM `usertable` WHERE userid = '$myId' LIMIT 1;";
+    $connect = mysqli_query($conn, $sql);
+    if ($connect) {
+        while ($result = mysqli_fetch_assoc($connect)) {
+            $userName = $result['username'];
+            $image = ($result['gender'] == 'Male')  ? 'ui/images/user1.jpg' : 'ui/images/user2.jpg';
+            if (file_exists($result['image'])) {
+                $image = $result['image'];
+            }
+            $myData = "<h6>Now Chatting with '$userName'</h6>
+            <div id='active_contact' style='
+                    border: 1px solid #aaa;
+                    width: 310px;
+                    height: 115px;
+                '>
+                            <img src='$image' alt='' style='
+                                width: 30%;
+                                margin: 10px;
+                                float: left;'>
+                                <br>
+                            $userName
+                        </div>";
+            $info->message = $myData;
+            $info->data_type = 'chats';
+            echo json_encode($info);
+        }
+    } else {
+        $info->message = "No contacts were found";
+        $info->data_type = "Error";
+        echo json_encode($info);
+    }
+
+    // $result = (object)mysqli_fetch_assoc($connect);
+    // $info = (object)[];
+
+
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'settings') {
     //settings
     include "includes/settings.php";

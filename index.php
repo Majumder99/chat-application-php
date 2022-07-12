@@ -49,6 +49,8 @@
 <?php include "footer.php"  ?>
 
 <script type="text/javascript">
+    var current_chat_user = "";
+
     const get_element = (element) => {
         return document.getElementById(element)
     }
@@ -89,9 +91,11 @@
             }
         };
         var data = {};
-        data.find = find;
+        data.find = find.user;
         data.data_type = type;
+        // console.log(data);
         data = JSON.stringify(data);
+        // console.log(data);
         xhttp.open("POST", "api.php", true);
         xhttp.send(data);
     }
@@ -252,10 +256,23 @@
             e.target.className = '';
         }
     }
+
+
+    const radio_chat = (e) => {
+        var userid = e.target.getAttribute('userid');
+        if (e.target.id === "") {
+            userid = e.target.parentNode.getAttribute('userid');
+        }
+        // console.log(userid)
+        current_chat_user = userid;
+        var radio_chat = get_element("radio_chat");
+        radio_chat.checked = true;
+        // console.log("Chat")
+        get_data({
+            user: current_chat_user
+        }, 'chats');
+    }
 </script>
-
-
-
 
 
 </html>
