@@ -91,6 +91,25 @@
             }
         };
         var data = {};
+        data.find = find;
+        data.data_type = type;
+        // console.log(data);
+        data = JSON.stringify(data);
+        // console.log(data);
+        xhttp.open("POST", "api.php", true);
+        xhttp.send(data);
+    }
+    const get_data_user = (find, type) => {
+        var xhttp = new XMLHttpRequest();
+        // var loader_auto = get_element('loader_auto');
+        // loader_auto.className = 'loader_on';
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                // loader_auto.className = 'loader_off';
+                handle_result(xhttp.responseText, type);
+            }
+        };
+        var data = {};
         data.find = find.user;
         data.data_type = type;
         // console.log(data);
@@ -101,8 +120,10 @@
     }
 
     const handle_result = (result, type) => {
-        console.log(result)
+        console.log(result);
         if (result.trim() !== "") {
+            var inner_right_pannel = get_element('inner_right_pannel');
+            inner_right_pannel.style.overflow = 'visible';
             let obj = JSON.parse(result);
             // typeof(obj.logged_in) !== "undefined" &&
             if (typeof(obj.logged_in) !== "undefined" && !obj.logged_in) {
@@ -123,12 +144,17 @@
 
                     case 'contacts':
                         var inner_left_pannel = get_element('inner_left_pannel');
+
+
+                        inner_right_pannel.style.overflow = 'hidden';
                         inner_left_pannel.innerHTML = obj.message;
                         break;
 
                     case 'chats':
                         var inner_left_pannel = get_element('inner_left_pannel');
-                        inner_left_pannel.innerHTML = obj.message;
+                        var inner_right_pannel = get_element('inner_right_pannel');
+                        inner_left_pannel.innerHTML = obj.user;
+                        inner_right_pannel.innerHTML = obj.messages;
                         break;
 
                     case 'settings':
@@ -154,6 +180,10 @@
         }
     }
     get_data({}, "user_info");
+    get_data({}, "contacts");
+
+    var radio_contacts = get_element('radio_contacts');
+    radio_contacts.checked = true;
 </script>
 
 <script>
@@ -268,7 +298,7 @@
         var radio_chat = get_element("radio_chat");
         radio_chat.checked = true;
         // console.log("Chat")
-        get_data({
+        get_data_user({
             user: current_chat_user
         }, 'chats');
     }

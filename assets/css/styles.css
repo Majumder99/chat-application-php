@@ -163,3 +163,33 @@ input[type="radio"] {
 .dragging {
   border: 2px dashed #aaa;
 }
+
+/* #message_left {
+  height: 70px;
+  margin: 10px;
+  padding: 2px;
+  padding-right: 10px;
+  background-color: #eee;
+  color: #444;
+  float: left;
+  box-sizing: 0px 0px 10px #aaa;
+  border-bottom-left-radius: 50%;
+  position: relative;
+}
+#message_left img {
+  width: 60px;
+  height: 60px;
+  float: left;
+  margin: 2px;
+  border-radius: 50%;
+  border: 2px solid white;
+} */
+/* #message_left div {
+  width: 20px;
+  height: 20px;
+  background-color: #34474f;
+  border-radius: 50%;
+  position: absolute;
+  left: -10px;
+  top: 20px;
+} */
