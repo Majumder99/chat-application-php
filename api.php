@@ -45,9 +45,24 @@ if (isset($data_obj->data_type) && $data_obj->data_type == 'signup') {
     include "includes/save_settings.php";
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'change_profile_image') {
     //settings
-    // include "includes/save_settings.php";
-    echo "from file save";
+    include "includes/save_settings.php";
+    // echo "from file save";
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'send_message') {
+    //settings
+    include "includes/send_message.php";
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function leftmessage($row) {

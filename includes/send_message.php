@@ -2,16 +2,30 @@
 
 $info = (object)[];
 
-if (isset($data_obj->find)) {
-    $myId = $data_obj->find;
-    $sql = "SELECT * FROM `usertable` WHERE userid = '$myId' LIMIT 1;";
-    $connect = mysqli_query($conn, $sql);
-} else {
-    $connect = false;
+// if (isset($data_obj->find)) {
+// } else {
+//     $connect = false;
+// }
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+
+$myId = $data_obj->find->userid;
+$sql = "SELECT * FROM `usertable` WHERE userid = '$myId' LIMIT 1;";
+$connect = mysqli_query($conn, $sql);
+
+
 
 if ($connect) {
     while ($result = mysqli_fetch_assoc($connect)) {
+        $message = $data_obj->find->message;
+        $date = date('Y-m-d H:i:s');
+        $sender = $_SESSION['userid'];
+
+        $sql = "INSERT INTO `message_table`( `sender`, `receiver`, `message`, `date`) VALUES ($sender, $myId,'$message','$date');";
+        $connection = mysqli_query($conn, $sql);
+
         $userName = $result['username'];
         $image = ($result['gender'] == 'Male')  ? 'ui/images/user1.jpg' : 'ui/images/user2.jpg';
         if (file_exists($result['image'])) {

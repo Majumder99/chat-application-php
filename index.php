@@ -175,6 +175,9 @@
                         get_data({}, 'settings');
                         // window.location.assign("index.php")
                         break;
+                    case 'send_message':
+                        console.log(obj.find.message);
+                        break;
                 }
             }
         }
@@ -301,6 +304,18 @@
         get_data_user({
             user: current_chat_user
         }, 'chats');
+    }
+    const send_message = (e) => {
+        var message_text = get_element('message_text');
+        if (message_text.value.trim() === '') {
+            console.log("Please type something to send");
+            return;
+        }
+        // console.log(message_text.value);
+        get_data({
+            message: message_text.value.trim(),
+            userid: current_chat_user,
+        }, 'send_message');
     }
 </script>
 
