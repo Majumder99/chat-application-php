@@ -32,157 +32,26 @@ if ($connect) {
                         </div>";
 
         $message = "
-        <div id='message_holder_parent' style='height:100%;'>
-            <div id='message_holder' style='height:748px; overflow-y:scroll;'>
-        
-                <div id='message_left' style='height: 100px;
-                margin: 10px;
-                padding: 2px;
-                padding-right: 10px;
-                background-color: #eee;
-                color: #444;
-                float: left;
-                box-shadow: 0px 0px 10px #aaa;
-                border-bottom-left-radius: 50%;
-                position: relative;
-                width:60%;
-                margin-left: 12px;
-                '>
-
-                    <div style=' width: 20px;
-                            height: 20px;
-                            background-color: #34474f;
-                            border-radius: 50%;
-                            position: absolute;
-                            left: -10px;
-                            top: 20px;  '>
-                    </div>
-
-                    <img src = '$image' style=' width: 60px;
-                            height: 60px;
-                            float: left;
-                            margin: 2px;
-                            border-radius: 50%;
-                            border: 2px solid white;'>
-
-                    <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
-                    This is a test message <br>
-                    <span style='font-size:11px;color:#999;'>20 Jan 2022 10:00 am</span>
-                </div>
+        <div id='message_holder_parent' style='height:100%;position:relative;'>
+            <div id='message_holder' style='height:748px; overflow-y:scroll;'>";
 
 
-                <div id='message_right' 
-                        style='height: 100px;
-                        margin: 10px;
-                        padding: 2px;
-                        padding-right: 10px;
-                        background-color: #fbffee;
-                        color: #444;
-                        float: right;
-                        box-shadow: 0px 0px 10px #aaa;
-                        border-bottom-right-radius: 50%;
-                        position: relative;
-                        width:60%;
-                '>
 
-                    <div style=' width: 20px;
-                            height: 20px;
-                            background-color: #34474f;
-                            border-radius: 50%;
-                            position: absolute;
-                            right: -10px;
-                            top: 20px;  '>
-                    </div>
 
-                    <img src = '$image' style='  width: 60px;
-                            height: 60px;
-                            float: right;
-                            margin: 2px;
-                            border-radius: 50%;
-                            border: 2px solid white;'>
+        $message .= leftmessage($result);
+        $message .= rightmessage($result);
 
-                    <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
-                    This is a test message <br>
-                    <span style='font-size:11px;color:#999;'>20 Jan 2022 10:00 am</span>
-                </div>
 
-                <div id='message_left' style='height: 100px;
-                margin: 10px;
-                padding: 2px;
-                padding-right: 10px;
-                background-color: #eee;
-                color: #444;
-                float: left;
-                box-shadow: 0px 0px 10px #aaa;
-                border-bottom-left-radius: 50%;
-                position: relative;
-                width:60%;
-                margin-left: 12px;
-                '>
-
-                    <div style=' width: 20px;
-                            height: 20px;
-                            background-color: #34474f;
-                            border-radius: 50%;
-                            position: absolute;
-                            left: -10px;
-                            top: 20px;  '>
-                    </div>
-
-                    <img src = '$image' style=' width: 60px;
-                            height: 60px;
-                            float: left;
-                            margin: 2px;
-                            border-radius: 50%;
-                            border: 2px solid white;'>
-
-                    <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
-                    This is a test message <br>
-                    <span style='font-size:11px;color:#999;'>20 Jan 2022 10:00 am</span>
-                </div>
-                
-                <div id='message_right' 
-                        style='height: 100px;
-                        margin: 10px;
-                        padding: 2px;
-                        padding-right: 10px;
-                        background-color: #fbffee;
-                        color: #444;
-                        float: right;
-                        box-shadow: 0px 0px 10px #aaa;
-                        border-bottom-right-radius: 50%;
-                        position: relative;
-                        width:60%;
-                '>
-
-                    <div style=' width: 20px;
-                            height: 20px;
-                            background-color: #34474f;
-                            border-radius: 50%;
-                            position: absolute;
-                            right: -10px;
-                            top: 20px;  '>
-                    </div>
-
-                    <img src = '$image' style='  width: 60px;
-                            height: 60px;
-                            float: right;
-                            margin: 2px;
-                            border-radius: 50%;
-                            border: 2px solid white;'>
-
-                    <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
-                    This is a test message <br>
-                    <span style='font-size:11px;color:#999;'>20 Jan 2022 10:00 am</span>
-                </div>
-
-            </div>
-        <div style='display: flex; text-align:center;height:40px;'>
+        $message .= "
+        <div style='style=text-align:center;height:40px;display: flex;position: absolute;bottom: 0;width: 100%;'>
+            <label for='share_file'><img src='ui/icons/clip.png' style='opacity:0.8; width:30px;cursor:pointer;margin:5px;'></label>
+            <input type='file' name='file' id='share_file' style='display:none'/>
             <input style='flex:6; border:none;font-size:14px;padding:4px;' type='text' placeholder='Type your message'>
             <input style='flex:1; cursor:pointer' type='button' value='Send'>
         </div>
-        </div>
-        ";
+        </div>";
+
+
         $info->user = $myData;
         $info->messages = $message;
         $info->data_type = 'chats';
