@@ -153,6 +153,7 @@
                     case 'chats':
                         var inner_left_pannel = get_element('inner_left_pannel');
                         var inner_right_pannel = get_element('inner_right_pannel');
+
                         inner_left_pannel.innerHTML = obj.user;
                         inner_right_pannel.innerHTML = obj.messages;
                         break;
@@ -174,9 +175,6 @@
                         get_data({}, "user_info");
                         get_data({}, 'settings');
                         // window.location.assign("index.php")
-                        break;
-                    case 'send_message':
-                        console.log(obj.find.message);
                         break;
                 }
             }

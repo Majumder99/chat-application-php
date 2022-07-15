@@ -109,12 +109,13 @@ function leftmessage($row) {
 }
 
 
-function rightmessage($row) {
-    $userName = $row['username'];
-    $image = ($row['gender'] == 'Male')  ? 'ui/images/user1.jpg' : 'ui/images/user2.jpg';
-    if (file_exists($row['image'])) {
-        $image = $row['image'];
+function rightmessage($row1, $row2) {
+    $userName = $row1['username'];
+    $image = ($row1['gender'] == 'Male')  ? 'ui/images/user1.jpg' : 'ui/images/user2.jpg';
+    if (file_exists($row1['image'])) {
+        $image = $row1['image'];
     }
+    $msg = $row2['message'];
     return "<div id='message_right' 
                         style='height: 100px;
                         margin: 10px;
@@ -147,7 +148,7 @@ function rightmessage($row) {
                             border: 2px solid white;'>
 
                     <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
-                    This is a test message <br>
+                    $msg <br>
                     <span style='font-size:11px;color:#999;'>20 Jan 2022 10:00 am</span>
                 </div>";
 }

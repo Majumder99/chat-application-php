@@ -12,8 +12,8 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $myId = $data_obj->find->userid;
-$sql = "SELECT * FROM `usertable` WHERE userid = '$myId' LIMIT 1;";
-$connect = mysqli_query($conn, $sql);
+$sql1 = "SELECT * FROM `usertable` WHERE userid = '$myId' LIMIT 1;";
+$connect = mysqli_query($conn, $sql1);
 
 
 
@@ -22,9 +22,21 @@ if ($connect) {
         $message = $data_obj->find->message;
         $date = date('Y-m-d H:i:s');
         $sender = $_SESSION['userid'];
+        $msgId = uniqid();
+        $receiver = $myId;
 
-        $sql = "INSERT INTO `message_table`( `sender`, `receiver`, `message`, `date`) VALUES ($sender, $myId,'$message','$date');";
-        $connection = mysqli_query($conn, $sql);
+        $sql2 = "SELECT * FROM `message_table` WHERE (sender = '$sender' && receiver = '$receiver') OR (receiver = '$sender' && sender = '$receiver') LIMIT 1;";
+        $connectagain = mysqli_query($conn, $sql2);
+
+        if ($connectagain) {
+            while ($result1 = mysqli_fetch_assoc($connectagain)) {
+                $msgId = $result1['msg_id'];
+            }
+        }
+
+        $sql3 = "INSERT INTO `message_table`( `sender`, `receiver`, `message`, `date`, `msg_id`) VALUES ('$sender', '$receiver','$message','$date', '$msgId');";
+        $connection = mysqli_query($conn, $sql3);
+
 
         $userName = $result['username'];
         $image = ($result['gender'] == 'Male')  ? 'ui/images/user1.jpg' : 'ui/images/user2.jpg';
@@ -54,15 +66,29 @@ if ($connect) {
 
         // $message .= leftmessage($result);
         // $message .= rightmessage($result);
+        // read from db
+        $sql4 = "SELECT * FROM `message_table` WHERE msg_id = '$msgId' LIMIT 10;";
+        $connectagain1 = mysqli_query($conn, $sql4);
+
+        if ($connectagain1) {
+            while ($result2 = mysqli_fetch_assoc($connectagain1)) {
+                // foreach ($result2 as $row) {
+                //     // rightmessage($result, $row)
+                //     $message .= $row->message;
+                // }
+                // $message .= $result2['message'];
+                $message .= rightmessage($result, $result2);
+            }
+        }
 
 
         $message .= "
-        <div style='style=text-align:center;height:40px;display: flex;position: absolute;bottom: 0;width: 100%;'>
-            <label for='share_file'><img src='ui/icons/clip.png' style='opacity:0.8; width:30px;cursor:pointer;margin:5px;'></label>
-            <input type='file' name='file' id='message_file' style='display:none'/>
-            <input id='message_text' style='flex:6; border:none;font-size:14px;padding:4px;' type='text' placeholder='Type your message'>
-            <input style='flex:1; cursor:pointer' type='button' value='Send' onclick='send_message(event)'>
-        </div>
+            <div style='style=text-align:center;height:40px;display: flex;position: absolute;bottom: 0;width: 100%;'>
+                <label for='share_file'><img src='ui/icons/clip.png' style='opacity:0.8; width:30px;cursor:pointer;margin:5px;'></label>
+                <input type='file' name='file' id='message_file' style='display:none'/>
+                <input id='message_text' style='flex:6; border:none;font-size:14px;padding:4px;' type='text' placeholder='Type your message'>
+                <input style='flex:1; cursor:pointer' type='button' value='Send' onclick='send_message(event)'>
+            </div>
         </div>";
 
 
