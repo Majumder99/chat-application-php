@@ -72,6 +72,7 @@ function leftmessage($row1, $row2) {
         $image = $row1['image'];
     }
     $msg = $row2['message'];
+    $dataNow = $row2['date'];
     return "<div id='message_left' style='height: 100px;
     margin: 10px;
     padding: 2px;
@@ -105,7 +106,7 @@ function leftmessage($row1, $row2) {
                     
                     <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
                     $msg <br>
-                    <span style='font-size:11px;color:#999;'>20 Jan 2022 10:00 am</span>
+                    <span style='font-size:11px;color:#999;'>$dataNow</span>
                     </div>";
 }
 
@@ -117,6 +118,7 @@ function rightmessage($row1, $row2) {
         $image = $row1['image'];
     }
     $msg = $row2['message'];
+    $dataNow = $row2['date'];
     return "<div id='message_right' 
                         style='height: 100px;
                         margin: 10px;
@@ -150,6 +152,21 @@ function rightmessage($row1, $row2) {
 
                     <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
                     $msg <br>
-                    <span style='font-size:11px;color:#999;'>20 Jan 2022 10:00 am</span>
+                    <span style='font-size:11px;color:#999;'>$dataNow</span>
                 </div>";
+}
+
+
+
+function messagecontrol() {
+
+    return
+        "
+            <div style='style=text-align:center;height:40px;display: flex;position: absolute;bottom: 0;width: 100%;'>
+                <label for='message_file'><img src='ui/icons/clip.png' style='opacity:0.8; width:30px;cursor:pointer;margin:5px;'></label>
+                <input type='file' name='file' id='message_file' style='display:none'/>
+                <input onkeypress='send_on_enter(event)' id='message_text' style='flex:6; border:none;font-size:14px;padding:4px;' type='text' placeholder='Type your message'>
+                <input style='flex:1; cursor:pointer' type='button' value='Send' onclick='send_message(event)'>
+            </div>
+        </div>";
 }

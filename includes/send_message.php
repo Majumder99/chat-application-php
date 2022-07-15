@@ -67,7 +67,7 @@ if ($connect) {
         // $message .= leftmessage($result);
         // $message .= rightmessage($result);
         // read from db
-        $sql4 = "SELECT * FROM `message_table` WHERE msg_id = '$msgId' LIMIT 10;";
+        $sql4 = "SELECT * FROM `message_table` WHERE msg_id = '$msgId';";
         $connectagain1 = mysqli_query($conn, $sql4);
 
         if ($connectagain1) {
@@ -86,14 +86,7 @@ if ($connect) {
         }
 
 
-        $message .= "
-            <div style='style=text-align:center;height:40px;display: flex;position: absolute;bottom: 0;width: 100%;'>
-                <label for='share_file'><img src='ui/icons/clip.png' style='opacity:0.8; width:30px;cursor:pointer;margin:5px;'></label>
-                <input type='file' name='file' id='message_file' style='display:none'/>
-                <input id='message_text' style='flex:6; border:none;font-size:14px;padding:4px;' type='text' placeholder='Type your message'>
-                <input style='flex:1; cursor:pointer' type='button' value='Send' onclick='send_message(event)'>
-            </div>
-        </div>";
+        $message .= messagecontrol();
 
 
         $info->user = $myData;

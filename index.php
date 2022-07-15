@@ -152,10 +152,16 @@
 
                     case 'chats':
                         var inner_left_pannel = get_element('inner_left_pannel');
-                        var inner_right_pannel = get_element('inner_right_pannel');
 
                         inner_left_pannel.innerHTML = obj.user;
                         inner_right_pannel.innerHTML = obj.messages;
+
+                        var message_holder = get_element('message_holder');
+                        setTimeout(() => {
+                            message_holder.scrollTo(0, message_holder.scrollHeight);
+                            var message_text = get_element('message_text');
+                            message_text.focus();
+                        }, 0)
                         break;
 
                     case 'settings':
@@ -314,6 +320,15 @@
             message: message_text.value.trim(),
             userid: current_chat_user,
         }, 'send_message');
+    }
+    const send_on_enter = (e) => {
+        if (e.type === 'keypress') {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                send_message(e);
+                // console.log(555);
+            }
+        }
     }
 </script>
 
