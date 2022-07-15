@@ -72,12 +72,16 @@ if ($connect) {
 
         if ($connectagain1) {
             while ($result2 = mysqli_fetch_assoc($connectagain1)) {
-                // foreach ($result2 as $row) {
-                //     // rightmessage($result, $row)
-                //     $message .= $row->message;
-                // }
-                // $message .= $result2['message'];
-                $message .= rightmessage($result, $result2);
+                $senderId = $result2['sender'];
+                $sql5 = "SELECT * FROM `usertable` WHERE userid = '$senderId' LIMIT 1;";
+                $connectDB = mysqli_query($conn, $sql5);
+                while ($result3 = mysqli_fetch_assoc($connectDB)) {
+                    if ($_SESSION['userid'] == $senderId) {
+                        $message .= rightmessage($result3, $result2);
+                    } else {
+                        $message .= leftmessage($result3, $result2);
+                    }
+                }
             }
         }
 
