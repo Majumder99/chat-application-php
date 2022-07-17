@@ -5,17 +5,19 @@ $info = (object)[];
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-if (isset($data_obj->find)) {
-    $myId = $data_obj->find;
-    $sql = "SELECT * FROM `usertable` WHERE userid = '$myId' LIMIT 1;";
-    $connect = mysqli_query($conn, $sql);
-} else {
-    $connect = false;
-}
+// if (isset($data_obj->find->user)) {
+// } else {
+//     $connect = false;
+// }
+$myId = $data_obj->find->user;
+$sql = "SELECT * FROM `usertable` WHERE userid = '$myId' LIMIT 1;";
+$connect = mysqli_query($conn, $sql);
 
 $refresh = false;
+$seen = false;
 if ($data_obj->data_type == 'chats_refresh') {
     $refresh = true;
+    $seen = $data_obj->find->seen;
 }
 
 
@@ -47,7 +49,7 @@ if ($connect) {
 
         if (!$refresh) {
             $message = "
-            <div id='message_holder_parent' style='height:100%;position:relative;'>
+            <div id='message_holder_parent' onclick='set_seen(event)' style='height:100%;position:relative;'>
                 <div id='message_holder' style='height:748px; overflow-y:scroll;'>";
         }
 
@@ -69,6 +71,13 @@ if ($connect) {
                         $message .= rightmessage($result3, $result2);
                     } else {
                         $message .= leftmessage($result3, $result2);
+                        $id = $result2['id'];
+                        if ($result2['received'] == 1 && $seen) {
+                            $sql6 = "UPDATE `message_table` SET `seen`= 1 WHERE id = $id LIMIT 1;";
+                            $connnectsql6 = mysqli_query($conn, $sql6);
+                        }
+                        $sql6 = "UPDATE `message_table` SET `received`= 1 WHERE id = $id LIMIT 1;";
+                        $connnectsql6 = mysqli_query($conn, $sql6);
                     }
                 }
             }

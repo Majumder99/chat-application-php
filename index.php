@@ -50,6 +50,7 @@
 
 <script type="text/javascript">
     var current_chat_user = "";
+    var seen_status = false;
 
     const get_element = (element) => {
         return document.getElementById(element)
@@ -123,8 +124,9 @@
         console.log(result);
         if (result.trim() !== "") {
             var inner_right_pannel = get_element('inner_right_pannel');
-            inner_right_pannel.style.overflow = 'visible';
+            inner_right_pannel.style.overflow = 'hidden';
             let obj = JSON.parse(result);
+            // console.log(result);
             // typeof(obj.logged_in) !== "undefined" &&
             if (typeof(obj.logged_in) !== "undefined" && !obj.logged_in) {
                 alert(result);
@@ -151,6 +153,7 @@
                         break;
 
                     case 'chats_refresh':
+                        seen_status = false;
                         var message_holder = get_element('message_holder');
                         message_holder.innerHTML = obj.messages;
                         setTimeout(() => {
@@ -162,6 +165,7 @@
                         break;
 
                     case 'chats':
+                        seen_status = false;
                         var inner_left_pannel = get_element('inner_left_pannel');
 
                         inner_left_pannel.innerHTML = obj.user;
@@ -207,11 +211,15 @@
     setInterval(() => {
         if (current_chat_user !== "") {
 
-            get_data_user({
-                user: current_chat_user
+            get_data({
+                user: current_chat_user,
+                seen: seen_status
             }, 'chats_refresh');
         }
     }, 1000)
+    const set_seen = (e) => {
+        seen_status = true;
+    }
 </script>
 
 <script>
@@ -326,7 +334,7 @@
         var radio_chat = get_element("radio_chat");
         radio_chat.checked = true;
         // console.log("Chat")
-        get_data_user({
+        get_data({
             user: current_chat_user
         }, 'chats');
     }
@@ -352,6 +360,7 @@
                 // console.log(555);
             }
         }
+        seen_status = true;
     }
 </script>
 
