@@ -46,7 +46,7 @@ if ($connect) {
         }
 
         $message = '';
-
+        $new_message = false;
         if (!$refresh) {
             $message = "
             <div id='message_holder_parent' onclick='set_seen(event)' style='height:100%;position:relative;'>
@@ -67,6 +67,7 @@ if ($connect) {
                 $sql5 = "SELECT * FROM `usertable` WHERE userid = '$senderId' LIMIT 1;";
                 $connectDB = mysqli_query($conn, $sql5);
                 while ($result3 = mysqli_fetch_assoc($connectDB)) {
+
                     if ($_SESSION['userid'] == $senderId) {
                         $message .= rightmessage($result3, $result2);
                     } else {
@@ -78,6 +79,9 @@ if ($connect) {
                         }
                         $sql6 = "UPDATE `message_table` SET `received`= 1 WHERE id = $id LIMIT 1;";
                         $connnectsql6 = mysqli_query($conn, $sql6);
+                        if ($result2['received'] == 0) {
+                            $new_message = true;
+                        }
                     }
                 }
             }
@@ -93,6 +97,7 @@ if ($connect) {
         $info->user = $myData;
         $info->messages = $message;
         $info->data_type = 'chats';
+        $info->new_message = $new_message;
         if ($refresh) {
             $info->data_type = 'chats_refresh';
         }

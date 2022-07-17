@@ -91,11 +91,11 @@ if ($connect) {
 
         $info->user = $myData;
         $info->messages = $message;
-        $info->data_type = 'chats';
+        $info->data_type = 'send_message';
         echo json_encode($info);
     }
 } else {
     $info->user = "No contacts were found";
-    $info->data_type = "chats";
+    $info->data_type = "send_message";
     echo json_encode($info);
 }

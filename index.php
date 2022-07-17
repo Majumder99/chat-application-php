@@ -52,6 +52,9 @@
     var current_chat_user = "";
     var seen_status = false;
 
+    var sent_audio = new Audio("ui/sounds/message_sent.mp3");
+    var received_audio = new Audio("ui/sounds/message_received.mp3");
+
     const get_element = (element) => {
         return document.getElementById(element)
     }
@@ -161,9 +164,16 @@
                             var message_text = get_element('message_text');
                             message_text.focus();
                         }, 500)
+                        if (typeof obj.new_message != 'undefined') {
+                            if (obj.new_message) {
+                                received_audio.play();
+                            }
+                        }
                         // console.log(obj.messages);
                         break;
 
+                    case 'send_message':
+                        sent_audio.play();
                     case 'chats':
                         seen_status = false;
                         var inner_left_pannel = get_element('inner_left_pannel');
@@ -178,7 +188,13 @@
                             var message_text = get_element('message_text');
                             message_text.focus();
                         }, 500)
+                        if (typeof obj.new_message != 'undefined') {
+                            if (obj.new_message) {
+                                received_audio.play();
+                            }
+                        }
                         break;
+
 
                     case 'settings':
                         var inner_left_pannel = get_element('inner_left_pannel');
@@ -216,7 +232,7 @@
                 seen: seen_status
             }, 'chats_refresh');
         }
-    }, 1000)
+    }, 5000)
     const set_seen = (e) => {
         seen_status = true;
     }

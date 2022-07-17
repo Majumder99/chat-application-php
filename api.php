@@ -119,7 +119,9 @@ function rightmessage($row1, $row2) {
     }
     $msg = $row2['message'];
     $dataNow = $row2['date'];
-    return "<div id='message_right' 
+    $seen = $row2['seen'];
+    $received = $row2['received'];
+    $a =  "<div id='message_right' 
                         style='height: 100px;
                         margin: 10px;
                         padding: 2px;
@@ -140,8 +142,18 @@ function rightmessage($row1, $row2) {
                             border-radius: 50%;
                             position: absolute;
                             right: -10px;
-                            top: 20px;  '>
-                    </div>
+                            top: 20px;  '>";
+
+
+    if ($seen) {
+        $a .= "<img src='ui/images/tick.png' style='width:25px;height:18px;float:none;margin:0px;border-radius:50%;border:none;position:absolute;top:30px;right:10px;' />";
+    } elseif ($received) {
+        $a .= "<img src='ui/images/tick_grey.png' style='width:25px;height:18px;float:none;margin:0px;border-radius:50%;border:none;position:absolute;top:30px;right:10px;' />";
+    }
+
+
+
+    $a .= " </div>
 
                     <img src = '$image' style='  width: 60px;
                             height: 60px;
@@ -154,6 +166,7 @@ function rightmessage($row1, $row2) {
                     $msg <br>
                     <span style='font-size:11px;color:#999;'>$dataNow</span>
                 </div>";
+    return $a;
 }
 
 
