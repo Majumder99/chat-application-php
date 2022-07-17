@@ -330,6 +330,18 @@
             }
         }
     }
+    setInterval(() => {
+        // current_chat_user = userid;
+        if (current_chat_user !== "") {
+
+            get_data_user({
+                user: current_chat_user
+            }, 'chats_refresh');
+        }
+        // var radio_chat = get_element("radio_chat");
+        // radio_chat.checked = true;
+        // console.log("Chat")
+    }, 5000)
 </script>
 
 

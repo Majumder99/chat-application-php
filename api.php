@@ -34,7 +34,7 @@ if (isset($data_obj->data_type) && $data_obj->data_type == 'signup') {
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'contacts') {
     //contacts
     include "includes/contacts.php";
-} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'chats') {
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'chats' || $data_obj->data_type == 'chats_refresh') {
     //chats
     include "includes/chats.php";
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'settings') {

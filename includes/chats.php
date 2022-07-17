@@ -2,6 +2,10 @@
 
 $info = (object)[];
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 if (isset($data_obj->find)) {
     $myId = $data_obj->find;
     $sql = "SELECT * FROM `usertable` WHERE userid = '$myId' LIMIT 1;";
@@ -37,9 +41,28 @@ if ($connect) {
 
 
 
+        // read from db
+        $receiver = $myId;
+        $sender = $_SESSION['userid'];
+        $sql4 = "SELECT * FROM `message_table` WHERE (sender = '$sender' && receiver = '$receiver') OR (receiver = '$sender' && sender = '$receiver');";
+        $connectagain1 = mysqli_query($conn, $sql4);
 
-        // $message .= leftmessage($result);
-        // $message .= rightmessage($result);
+        if ($connectagain1) {
+            while ($result2 = mysqli_fetch_assoc($connectagain1)) {
+                $senderId = $result2['sender'];
+                $sql5 = "SELECT * FROM `usertable` WHERE userid = '$senderId' LIMIT 1;";
+                $connectDB = mysqli_query($conn, $sql5);
+                while ($result3 = mysqli_fetch_assoc($connectDB)) {
+                    if ($_SESSION['userid'] == $senderId) {
+                        $message .= rightmessage($result3, $result2);
+                    } else {
+                        $message .= leftmessage($result3, $result2);
+                    }
+                }
+            }
+        }
+
+
 
 
         $message .= messagecontrol();
