@@ -150,6 +150,17 @@
                         inner_left_pannel.innerHTML = obj.message;
                         break;
 
+                    case 'chats_refresh':
+                        var message_holder = get_element('message_holder');
+                        message_holder.innerHTML = obj.messages;
+                        setTimeout(() => {
+                            message_holder.scrollTo(0, message_holder.scrollHeight);
+                            var message_text = get_element('message_text');
+                            message_text.focus();
+                        }, 500)
+                        // console.log(obj.messages);
+                        break;
+
                     case 'chats':
                         var inner_left_pannel = get_element('inner_left_pannel');
 
@@ -157,11 +168,12 @@
                         inner_right_pannel.innerHTML = obj.messages;
 
                         var message_holder = get_element('message_holder');
+
                         setTimeout(() => {
                             message_holder.scrollTo(0, message_holder.scrollHeight);
                             var message_text = get_element('message_text');
                             message_text.focus();
-                        }, 0)
+                        }, 500)
                         break;
 
                     case 'settings':
@@ -191,6 +203,15 @@
 
     var radio_contacts = get_element('radio_contacts');
     radio_contacts.checked = true;
+
+    setInterval(() => {
+        if (current_chat_user !== "") {
+
+            get_data_user({
+                user: current_chat_user
+            }, 'chats_refresh');
+        }
+    }, 1000)
 </script>
 
 <script>
@@ -309,6 +330,7 @@
             user: current_chat_user
         }, 'chats');
     }
+
     const send_message = (e) => {
         var message_text = get_element('message_text');
         if (message_text.value.trim() === '') {
@@ -321,6 +343,7 @@
             userid: current_chat_user,
         }, 'send_message');
     }
+
     const send_on_enter = (e) => {
         if (e.type === 'keypress') {
             if (e.key === "Enter") {
@@ -330,18 +353,6 @@
             }
         }
     }
-    setInterval(() => {
-        // current_chat_user = userid;
-        if (current_chat_user !== "") {
-
-            get_data_user({
-                user: current_chat_user
-            }, 'chats_refresh');
-        }
-        // var radio_chat = get_element("radio_chat");
-        // radio_chat.checked = true;
-        // console.log("Chat")
-    }, 5000)
 </script>
 
 
