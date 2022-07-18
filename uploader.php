@@ -25,13 +25,6 @@ if (isset($_POST['data_type'])) {
 
 $destination = "";
 if (isset($_FILES['file']) && $_FILES['file']['name'] != "") {
-    // $allowed[] = "image/jpg";
-    // $allowed[] = "image/JPG";
-    // $allowed[] = "image/png";
-    // $allowed[] = "image/PNG";
-
-    // $_FILES['file']['type'];
-    // && in_array($_FILES['file']['type'], $allowed)
 
     if ($_FILES['file']['error'] == 0) {
         //good to go
@@ -41,10 +34,6 @@ if (isset($_FILES['file']) && $_FILES['file']['name'] != "") {
         }
         $destination = $folder . $_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $destination);
-
-        // $info->message = "Image uploaded successfully";
-        // $info->data_type = $data_type;
-        // echo json_encode($info);
     }
 }
 

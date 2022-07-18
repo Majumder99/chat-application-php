@@ -80,12 +80,7 @@ $email = $username = $password = $repassword = $gender = '';
                                         </div>
                                     </div>
 
-                                    <div class="form-check d-flex justify-content-center mb-5 terms-service">
-                                        <input name="agreed" class="form-check-input me-2" type="checkbox" id="form2Example3c" />
-                                        <label name="agreed" class="form-check-label" for="form2Example3c">
-                                            I agree all statements in <a href="#!">Terms of service</a>
-                                        </label>
-                                    </div>
+
 
                                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                         <input id="signup_button" type="button" value="Register" name="submit" class="btn btn-primary btn-lg">

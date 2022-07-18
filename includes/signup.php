@@ -2,6 +2,8 @@
 
 $info = (object)[];
 
+
+
 $errors = array('email' => '', 'username' => '', 'password' => '', 'repassword' => '', 'gender' => '');
 $userid = uniqid();
 $username = $data_obj->username;
@@ -47,15 +49,13 @@ if (empty($repassword)) {
 
 $date = date("Y-m-d H:i:s");
 
+
 if (array_filter($errors)) {
-    // foreach ($errors as $key => $val) {
-    // echo "Error in $key => $val <br>";
-    // }
     $info->message = $errors;
     $info->data_type = 'Error';
     echo json_encode($info);
 } else {
-    $sql = "INSERT INTO `usertable`( `userid`, `username`, `email`, `gender`, `password`, `date`) VALUES ('$userid','$username','$email', '$gender', '$password','$date');";
+    $sql = "INSERT INTO `usertable`( `userid`, `username`, `email`, `gender`, `password`, `date`) VALUES ('$userid','$username','$email', '$gender','$password','$date');";
     $connect = mysqli_query($conn, $sql);
 
     if ($connect) {
