@@ -3,11 +3,7 @@
 <div id="wrapper">
     <div id="left_pannel">
         <div id="user_info" style="padding: 10px;">
-            <img id="profile_img" class="img_edit" src="ui/images/user1.jpg" alt="No user" style="
-    border-radius: 50%;
-    width: 100px !important;
-    height: 100px !important;
-">
+            <img id="profile_img" class="img_edit" src="ui/images/user1.jpg" alt="No user" style="border-radius: 50%;width: 100px !important;height: 100px !important;">
             <br>
             <h1 id="username" style="font-size: 18px; margin-bottom:-20px;">Username</h1>
             <br>
@@ -15,7 +11,6 @@
             <br>
             <br>
             <br>
-
             <div>
                 <label id="label_chat" for="radio_chat">Chat <img src="ui/icons/chat.png" alt=""></label>
                 <label id="label_contacts" for="radio_contacts">Contacts <img src="ui/icons/contacts.png" alt=""></label>
@@ -239,12 +234,34 @@
     const set_seen = (e) => {
         seen_status = true;
     }
-    const delete_message = (e) => {
+    const right_delete_message = (e) => {
+        var trueOrFalse = confirm("Are you sure you want to delete this message for everyone?")
+        if (trueOrFalse) {
+            var msgid = e.target.getAttribute('msgid');
+            get_data({
+                rowid: msgid
+            }, 'delete_all_message');
+            get_data({
+                user: current_chat_user,
+                seen: seen_status
+            }, 'chats_refresh');
+        } else {
+            var msgid = e.target.getAttribute('msgid');
+            get_data({
+                rowid: msgid
+            }, 'delete_single_message');
+            get_data({
+                user: current_chat_user,
+                seen: seen_status
+            }, 'chats_refresh');
+        }
+    }
+    const left_delete_message = (e) => {
         if (confirm("Are you sure you want to delete this message?")) {
             var msgid = e.target.getAttribute('msgid');
             get_data({
                 rowid: msgid
-            }, 'delete_message');
+            }, 'delete_single_message');
             get_data({
                 user: current_chat_user,
                 seen: seen_status

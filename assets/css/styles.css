@@ -6,17 +6,15 @@
   margin: auto;
   color: white;
 }
-/* #wrapper1 {
-  max-width: 900px;
-  min-height: 500px;
-  margin: auto;
-  color: grey;
-} */
 #left_pannel {
   min-height: 790px;
   flex: 1;
   background-color: #27344b;
   text-align: center;
+}
+#right_pannel {
+  flex: 4;
+  min-height: 790px;
 }
 #profile-img {
   width: 70%;
@@ -41,10 +39,6 @@
 #left_pannel label img {
   float: right;
   width: 30px;
-}
-#right_pannel {
-  flex: 4;
-  min-height: 790px;
 }
 #header {
   background-color: #485b6c;

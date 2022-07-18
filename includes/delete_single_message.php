@@ -30,7 +30,7 @@ if ($connect) {
         }
     }
 } else {
-    $info->user = "No contacts were found";
+    $info->user = "Message don't exist";
     $info->data_type = "chats";
     echo json_encode($info);
 }

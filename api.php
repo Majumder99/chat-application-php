@@ -47,12 +47,15 @@ if (isset($data_obj->data_type) && $data_obj->data_type == 'signup') {
     //settings
     include "includes/save_settings.php";
     // echo "from file save";
-} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'delete_message') {
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'delete_single_message') {
     //settings
-    include "includes/delete_message.php";
+    include "includes/delete_single_message.php";
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'send_message') {
     //settings
     include "includes/send_message.php";
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'delete_all_message') {
+    //settings
+    include "includes/delete_all_message.php";
 }
 
 
@@ -115,7 +118,7 @@ function leftmessage($row1, $row2) {
     }
 
     $a .= "<span style='font-size:11px;color:#999;'>$dataNow</span>
-                    <img  src='ui/icons/trash.png' style='width:20px;height:20px;position:absolute;top:40px;right:-20px;cursor:pointer;' onclick='delete_message(event)' msgid='$id'/>
+                    <img  src='ui/icons/trash.png' style='width:20px;height:20px;position:absolute;top:40px;right:-20px;cursor:pointer;' onclick='left_delete_message(event)' msgid='$id'/>
                     </div>";
 
     return $a;
@@ -159,9 +162,9 @@ function rightmessage($row1, $row2) {
 
 
     if ($seen) {
-        $a .= "<img src='ui/images/tick.png' style='width:25px;height:18px;float:none;margin:0px;border-radius:50%;border:none;position:absolute;top:30px;right:10px;' />";
+        $a .= "<img src='ui/images/tick.png' style='width:25px;height:18px;float:none;margin:0px;border-radius:50%;border:none;position:absolute;top:-12px;left:-385px;' />";
     } elseif ($received) {
-        $a .= "<img src='ui/images/tick_grey.png' style='width:25px;height:18px;float:none;margin:0px;border-radius:50%;border:none;position:absolute;top:30px;right:10px;' />";
+        $a .= "<img src='ui/images/tick_grey.png' style='width:25px;height:18px;float:none;margin:0px;border-radius:50%;border:none;position:absolute;top:-12px;left:-385px;' />";
     }
 
 
@@ -181,7 +184,7 @@ function rightmessage($row1, $row2) {
         $a .= "<img src='$file' style='width:100%;cursor:pointer;' onclick='image_show(event)'/> <br>";
     }
     $a .= "<span style='font-size:11px;color:#999;'>$dataNow</span>
-                    <img  src='ui/icons/trash.png' style='width:20px;height:20px;position:absolute;top:40px;left:-20px;cursor:pointer;' onclick='delete_message(event)' msgid='$id'/>
+                    <img  src='ui/icons/trash.png' style='width:20px;height:20px;position:absolute;top:40px;left:-20px;cursor:pointer;' onclick='right_delete_message(event)' msgid='$id'/>
                 </div>";
     return $a;
 }
