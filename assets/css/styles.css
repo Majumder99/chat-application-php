@@ -164,32 +164,15 @@ input[type="radio"] {
   border: 2px dashed #aaa;
 }
 
-/* #message_left {
-  height: 70px;
-  margin: 10px;
-  padding: 2px;
-  padding-right: 10px;
-  background-color: #eee;
-  color: #444;
-  float: left;
-  box-sizing: 0px 0px 10px #aaa;
-  border-bottom-left-radius: 50%;
-  position: relative;
-}
-#message_left img {
-  width: 60px;
-  height: 60px;
-  float: left;
-  margin: 2px;
-  border-radius: 50%;
-  border: 2px solid white;
-} */
-/* #message_left div {
-  width: 20px;
-  height: 20px;
-  background-color: #34474f;
-  border-radius: 50%;
+.image_on {
   position: absolute;
-  left: -10px;
-  top: 20px;
-} */
+  height: 700px;
+  width: 700px;
+  margin: auto;
+  z-index: 10;
+  top: 50px;
+  left: 80px;
+}
+.image_off {
+  display: none;
+}

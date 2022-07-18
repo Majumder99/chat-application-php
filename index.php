@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-
-<?php include "header.php" ?>
-
+<?php include 'header.php' ?>
 
 <div id="wrapper">
     <div id="left_pannel">
@@ -30,6 +27,7 @@
     <div id="right_pannel">
         <div id="header">
             <!-- <div id="loader_auto"><img src="ui/icons/giphy.gif" alt=""></div> -->
+            <div id="image_viewer" class="image_off" onclick="close_image(event)"></div>
             My Chat
         </div>
         <div id="container">
@@ -440,6 +438,16 @@
         xhttp.open("POST", "uploader.php", true);
         // xhttp.open("POST", "api.php", true);
         xhttp.send(myForm);
+    }
+    const close_image = (e) => {
+        e.target.className = 'image_off';
+    }
+    const image_show = (e) => {
+        var image = e.target.src;
+        var image_viewer = get_element('image_viewer');
+
+        image_viewer.innerHTML = "<img src ='" + image + "' style='width:100%;height:100%;' />";
+        image_viewer.className = 'image_on';
     }
 </script>
 

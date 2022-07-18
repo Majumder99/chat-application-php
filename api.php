@@ -76,7 +76,7 @@ function leftmessage($row1, $row2) {
     $dataNow = $row2['date'];
     $id = $row2['id'];
     $file = $row2['file'];
-    return "<div id='message_left' style='
+    $a =  "<div id='message_left' style='
     margin: 10px;
     padding: 2px;
     padding-right: 10px;
@@ -108,11 +108,17 @@ function leftmessage($row1, $row2) {
                     border: 2px solid white;'>
                     
                     <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
-                    $msg <br>
-                    <img src='$file' style='width:100%;'/> <br>
-                    <span style='font-size:11px;color:#999;'>$dataNow</span>
+                    $msg <br>";
+
+    if ($file != '' && file_exists($file)) {
+        $a .= "<img src='$file' style='width:100%;cursor:pointer;' onclick='image_show(event)'/> <br>";
+    }
+
+    $a .= "<span style='font-size:11px;color:#999;'>$dataNow</span>
                     <img  src='ui/icons/trash.png' style='width:20px;height:20px;position:absolute;top:40px;right:-20px;cursor:pointer;' onclick='delete_message(event)' msgid='$id'/>
                     </div>";
+
+    return $a;
 }
 
 
@@ -170,9 +176,11 @@ function rightmessage($row1, $row2) {
                             border: 2px solid white;'>
 
                     <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
-                    $msg <br>
-                    <img src='$file' style='width:100%;'/> <br>
-                    <span style='font-size:11px;color:#999;'>$dataNow</span>
+                    $msg <br>";
+    if ($file != '' && file_exists($file)) {
+        $a .= "<img src='$file' style='width:100%;cursor:pointer;' onclick='image_show(event)'/> <br>";
+    }
+    $a .= "<span style='font-size:11px;color:#999;'>$dataNow</span>
                     <img  src='ui/icons/trash.png' style='width:20px;height:20px;position:absolute;top:40px;left:-20px;cursor:pointer;' onclick='delete_message(event)' msgid='$id'/>
                 </div>";
     return $a;
