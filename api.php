@@ -47,6 +47,9 @@ if (isset($data_obj->data_type) && $data_obj->data_type == 'signup') {
     //settings
     include "includes/save_settings.php";
     // echo "from file save";
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'delete_message') {
+    //settings
+    include "includes/delete_message.php";
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'send_message') {
     //settings
     include "includes/send_message.php";
@@ -73,6 +76,7 @@ function leftmessage($row1, $row2) {
     }
     $msg = $row2['message'];
     $dataNow = $row2['date'];
+    $id = $row2['id'];
     return "<div id='message_left' style='height: 100px;
     margin: 10px;
     padding: 2px;
@@ -97,7 +101,7 @@ function leftmessage($row1, $row2) {
                 top: 20px;  '>
                 </div>
                 
-                    <img src = '$image' style=' width: 60px;
+                    <img id='prof_img' src = '$image' style=' width: 60px;
                     height: 60px;
                     float: left;
                     margin: 2px;
@@ -107,6 +111,7 @@ function leftmessage($row1, $row2) {
                     <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
                     $msg <br>
                     <span style='font-size:11px;color:#999;'>$dataNow</span>
+                    <img  src='ui/icons/trash.png' style='width:20px;height:20px;position:absolute;top:40px;right:-20px;cursor:pointer;' onclick='delete_message(event)' msgid='$id'/>
                     </div>";
 }
 
@@ -121,6 +126,7 @@ function rightmessage($row1, $row2) {
     $dataNow = $row2['date'];
     $seen = $row2['seen'];
     $received = $row2['received'];
+    $id = $row2['id'];
     $a =  "<div id='message_right' 
                         style='height: 100px;
                         margin: 10px;
@@ -155,7 +161,7 @@ function rightmessage($row1, $row2) {
 
     $a .= " </div>
 
-                    <img src = '$image' style='  width: 60px;
+                    <img id='prof_img' src = '$image' style='  width: 60px;
                             height: 60px;
                             float: right;
                             margin: 2px;
@@ -165,6 +171,7 @@ function rightmessage($row1, $row2) {
                     <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
                     $msg <br>
                     <span style='font-size:11px;color:#999;'>$dataNow</span>
+                    <img  src='ui/icons/trash.png' style='width:20px;height:20px;position:absolute;top:40px;left:-20px;cursor:pointer;' onclick='delete_message(event)' msgid='$id'/>
                 </div>";
     return $a;
 }
@@ -184,3 +191,16 @@ function messagecontrol() {
             </div>
     </div>";
 }
+
+
+
+// style for trash
+// width:20px;
+// height:20px;
+// position: absolute;
+// top:10px;
+// lreft:-10px;
+
+        // <div style='margin-top:53px;'>
+        //     <span style='color:grey;float:none;display:block;position: absolute;top: 736px;left: 245px;cursor:pointer;'>Delete this thread</span>
+        // </div>

@@ -58,7 +58,7 @@ if ($connect) {
         // read from db
         $receiver = $myId;
         $sender = $_SESSION['userid'];
-        $sql4 = "SELECT * FROM `message_table` WHERE (sender = '$sender' && receiver = '$receiver') OR (receiver = '$sender' && sender = '$receiver');";
+        $sql4 = "SELECT * FROM `message_table` WHERE (sender = '$sender' && receiver = '$receiver' && deleted_sender = 0) OR (receiver = '$sender' && sender = '$receiver' && deleted_receiver = 0);";
         $connectagain1 = mysqli_query($conn, $sql4);
         if ($connectagain1) {
             while ($result2 = mysqli_fetch_assoc($connectagain1)) {

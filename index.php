@@ -78,7 +78,7 @@
 
     var logout = get_element('logout');
     logout.addEventListener('click', () => {
-        var answer = confirm("Are you sure you want to log out??");
+        var answer = confirm("Are you sure you want to log out?");
         if (answer) {
             get_data({}, 'logout')
         }
@@ -235,6 +235,18 @@
     }, 5000)
     const set_seen = (e) => {
         seen_status = true;
+    }
+    const delete_message = (e) => {
+        if (confirm("Are you sure you want to delete this message?")) {
+            var msgid = e.target.getAttribute('msgid');
+            get_data({
+                rowid: msgid
+            }, 'delete_message');
+            get_data({
+                user: current_chat_user,
+                seen: seen_status
+            }, 'chats_refresh');
+        }
     }
 </script>
 
