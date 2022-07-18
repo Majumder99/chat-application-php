@@ -148,6 +148,7 @@
                         break;
 
                     case 'contacts':
+                        seen_status = false;
                         var inner_left_pannel = get_element('inner_left_pannel');
 
 
@@ -156,17 +157,18 @@
                         break;
 
                     case 'chats_refresh':
-                        seen_status = false;
+                        // seen_status = false;
                         var message_holder = get_element('message_holder');
                         message_holder.innerHTML = obj.messages;
-                        setTimeout(() => {
-                            message_holder.scrollTo(0, message_holder.scrollHeight);
-                            var message_text = get_element('message_text');
-                            message_text.focus();
-                        }, 500)
+
                         if (typeof obj.new_message != 'undefined') {
                             if (obj.new_message) {
                                 received_audio.play();
+                                setTimeout(() => {
+                                    message_holder.scrollTo(0, message_holder.scrollHeight);
+                                    var message_text = get_element('message_text');
+                                    message_text.focus();
+                                }, 100)
                             }
                         }
                         // console.log(obj.messages);
@@ -187,7 +189,7 @@
                             message_holder.scrollTo(0, message_holder.scrollHeight);
                             var message_text = get_element('message_text');
                             message_text.focus();
-                        }, 500)
+                        }, 100)
                         if (typeof obj.new_message != 'undefined') {
                             if (obj.new_message) {
                                 received_audio.play();
@@ -213,6 +215,9 @@
                         get_data({}, "user_info");
                         get_data({}, 'settings');
                         // window.location.assign("index.php")
+                        break;
+                    case 'send_files':
+                        alert(obj.message);
                         break;
                 }
             }
@@ -304,7 +309,15 @@
     }
 
     const upload_images = (files) => {
-        console.log(files[0]);
+        // console.log(files[0]);
+
+        var filename = files[0].name;
+        var ext_start = filename.lastIndexOf(".");
+        var ext = filename.substr(ext_start + 1, 3);
+        if (!(ext === 'jpg' || ext === 'JPG' || ext === 'png' || ext === 'PNG')) {
+            alert("This file type is not allowed");
+            return;
+        }
 
         var change_image_input = get_element("change_image_input");
         change_image_input.disable = true;
@@ -389,6 +402,44 @@
             }
         }
         seen_status = true;
+    }
+
+    const send_files = (files) => {
+        // alert(files[0].name);
+        // if multiple file then use for loop video part 57 06 minute
+
+        var filename = files[0].name;
+        var ext_start = filename.lastIndexOf(".");
+        var ext = filename.substr(ext_start + 1, 3);
+        if (!(ext === 'jpg' || ext === 'JPG' || ext === 'png' || ext === 'PNG')) {
+            alert("This file type is not allowed");
+            return;
+        }
+
+        var myForm = new FormData();
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                alert(xhttp.responseText);
+                get_data({
+                    user: current_chat_user,
+                    seen: seen_status
+                }, 'chats_refresh');
+                // handle_result(xhttp.responseText);
+                // change_image_input.disable = false;
+                // change_image_input.innerHTML = "Save Settings";
+            }
+        };
+
+        myForm.append('file', files[0]);
+        myForm.append('data_type', "send_files");
+        myForm.append('user', current_chat_user);
+
+        // console.log(data_string)
+        // console.log("sending files");
+        xhttp.open("POST", "uploader.php", true);
+        // xhttp.open("POST", "api.php", true);
+        xhttp.send(myForm);
     }
 </script>
 

@@ -66,8 +66,6 @@ if (isset($data_obj->data_type) && $data_obj->data_type == 'signup') {
 
 
 
-
-
 function leftmessage($row1, $row2) {
     $userName = $row1['username'];
     $image = ($row1['gender'] == 'Male')  ? 'ui/images/user1.jpg' : 'ui/images/user2.jpg';
@@ -77,7 +75,8 @@ function leftmessage($row1, $row2) {
     $msg = $row2['message'];
     $dataNow = $row2['date'];
     $id = $row2['id'];
-    return "<div id='message_left' style='height: 100px;
+    $file = $row2['file'];
+    return "<div id='message_left' style='
     margin: 10px;
     padding: 2px;
     padding-right: 10px;
@@ -110,6 +109,7 @@ function leftmessage($row1, $row2) {
                     
                     <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
                     $msg <br>
+                    <img src='$file' style='width:100%;'/> <br>
                     <span style='font-size:11px;color:#999;'>$dataNow</span>
                     <img  src='ui/icons/trash.png' style='width:20px;height:20px;position:absolute;top:40px;right:-20px;cursor:pointer;' onclick='delete_message(event)' msgid='$id'/>
                     </div>";
@@ -127,8 +127,9 @@ function rightmessage($row1, $row2) {
     $seen = $row2['seen'];
     $received = $row2['received'];
     $id = $row2['id'];
+    $file = $row2['file'];
     $a =  "<div id='message_right' 
-                        style='height: 100px;
+                        style='
                         margin: 10px;
                         padding: 2px;
                         padding-right: 10px;
@@ -170,6 +171,7 @@ function rightmessage($row1, $row2) {
 
                     <span style='font-size:10px;font-weight:bold;'>$userName</span> <br>
                     $msg <br>
+                    <img src='$file' style='width:100%;'/> <br>
                     <span style='font-size:11px;color:#999;'>$dataNow</span>
                     <img  src='ui/icons/trash.png' style='width:20px;height:20px;position:absolute;top:40px;left:-20px;cursor:pointer;' onclick='delete_message(event)' msgid='$id'/>
                 </div>";
@@ -185,22 +187,9 @@ function messagecontrol() {
         </div>
             <div style='style=text-align:center;height:40px;display: flex;position: absolute;bottom: 0;width: 100%;'>
                 <label for='message_file'><img src='ui/icons/clip.png' style='opacity:0.8; width:30px;cursor:pointer;margin:5px;'></label>
-                <input type='file' name='file' id='message_file' style='display:none'/>
+                <input type='file' name='file' id='message_file' style='display:none' onchange='send_files(this.files)'/>
                 <input onkeypress='send_on_enter(event)' id='message_text' style='flex:6; border:none;font-size:14px;padding:4px;' type='text' placeholder='Type your message'>
                 <input style='flex:1; cursor:pointer' type='button' value='Send' onclick='send_message(event)'>
             </div>
     </div>";
 }
-
-
-
-// style for trash
-// width:20px;
-// height:20px;
-// position: absolute;
-// top:10px;
-// lreft:-10px;
-
-        // <div style='margin-top:53px;'>
-        //     <span style='color:grey;float:none;display:block;position: absolute;top: 736px;left: 245px;cursor:pointer;'>Delete this thread</span>
-        // </div>
