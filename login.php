@@ -51,7 +51,7 @@ $email = $password = '';
 
 
 <script>
-    const documentId = (element) => {
+    const get_element = (element) => {
 
         return document.getElementById(element);
     }
@@ -61,7 +61,7 @@ $email = $password = '';
     function collect_data() {
         login_button.disable = true;
         login_button.value = 'Loading.....';
-        var myForm = documentId("myForm");
+        var myForm = get_element("myForm");
         var inputs = myForm.getElementsByTagName("INPUT");
         var data = {};
         for (var i = inputs.length - 1; i >= 0; i--) {
@@ -97,10 +97,13 @@ $email = $password = '';
         var data = JSON.parse(result);
         if (data.data_type == "Successfull") {
             window.location.assign("index.php");
+        } else if (data.data_type == "admin") {
+            console.log("i am admin")
+            window.location.assign("http://localhost/Web%20Project/admin_panel.php");
         } else {
             // alert(data.message);
-            var email = document.getElementById('email');
-            var password = document.getElementById('password');
+            var email = get_element('email');
+            var password = get_element('password');
 
             email.innerHTML = data.email;
             password.innerHTML = data.password;

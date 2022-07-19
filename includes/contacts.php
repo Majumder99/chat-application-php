@@ -7,7 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 $id = $_SESSION['userid'];
 
-$sql = "SELECT * FROM `usertable` WHERE userid != '$id' LIMIT 10;";
+$sql = "SELECT * FROM `usertable` WHERE userid != '$id' && userid != '62d696ce669';";
 $connect = mysqli_query($conn, $sql);
 if ($connect) {
     $num = mysqli_num_rows($connect);

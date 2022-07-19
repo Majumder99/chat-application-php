@@ -15,26 +15,37 @@ if ($conn && !empty($email)) {
         $num = mysqli_num_rows($connect);
         if ($num > 0) {
             while ($result = mysqli_fetch_assoc($connect)) {
-                if (empty($password)) {
+                $newid = $result['userid'];
+                if ($newid == '62d696ce669') {
+                    // header("Location:http://localhost/Web%20Project/includes/admin_panel.php");
                     $info->email = "";
-                    $info->message = "Connect Unsuccessfully";
-                    $info->password = "Password empty";
-                    $info->data_type = 'Error';
+                    $info->password = "";
+                    $info->message = "Connect Successfully admin";
+                    $info->data_type = 'admin';
+                    $_SESSION['admin_id'] = '62d696ce669';
                     echo json_encode($info);
                 } else {
-                    if ($result['password'] == $password) {
-                        $_SESSION['userid'] = $result['userid'];
-                        $info->message = "Connect Successfully";
-                        $info->email = "";
-                        $info->password = "";
-                        $info->data_type = 'Successfull';
-                        echo json_encode($info);
-                    } else {
+                    if (empty($password)) {
                         $info->email = "";
                         $info->message = "Connect Unsuccessfully";
-                        $info->password = "Wrong Password";
+                        $info->password = "Password empty";
                         $info->data_type = 'Error';
                         echo json_encode($info);
+                    } else {
+                        if ($result['password'] == $password) {
+                            $_SESSION['userid'] = $result['userid'];
+                            $info->message = "Connect Successfully";
+                            $info->email = "";
+                            $info->password = "";
+                            $info->data_type = 'Successfull';
+                            echo json_encode($info);
+                        } else {
+                            $info->email = "";
+                            $info->message = "Connect Unsuccessfully";
+                            $info->password = "Wrong Password";
+                            $info->data_type = 'Error';
+                            echo json_encode($info);
+                        }
                     }
                 }
             }

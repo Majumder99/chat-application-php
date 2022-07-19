@@ -122,7 +122,6 @@
             var inner_right_pannel = get_element('inner_right_pannel');
             inner_right_pannel.style.overflow = 'hidden';
             let obj = JSON.parse(result);
-            // console.log(result);
             // typeof(obj.logged_in) !== "undefined" &&
             if (typeof(obj.logged_in) !== "undefined" && !obj.logged_in) {
                 alert(result);
