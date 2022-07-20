@@ -12,7 +12,7 @@
             <br>
             <br>
             <div>
-                <label id="label_chat" for="radio_chat">Chat <img src="ui/icons/chat.png" alt=""></label>
+                <label style="display:none;" id="label_chat" for="radio_chat">Chat <img src="ui/icons/chat.png" alt=""></label>
                 <label id="label_contacts" for="radio_contacts">Contacts <img src="ui/icons/contacts.png" alt=""></label>
                 <label id="label_settings" for="radio_settings">Settings <img src="ui/icons/settings.png" alt=""></label>
                 <label id="logout" for="radio_logout">Logout <img src="ui/icons/search-icon.png" alt=""></label>
