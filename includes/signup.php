@@ -6,6 +6,10 @@ $info = (object)[];
 
 $errors = array('email' => '', 'username' => '', 'password' => '', 'repassword' => '', 'gender' => '');
 $userid = uniqid();
+$file = '';
+if (isset($data_obj->files)) {
+    $file = $data_obj->files;
+}
 $username = $data_obj->username;
 if (empty($username)) {
     $errors['username'] = 'Username is empty <br>';
@@ -55,7 +59,7 @@ if (array_filter($errors)) {
     $info->data_type = 'Error';
     echo json_encode($info);
 } else {
-    $sql = "INSERT INTO `usertable`( `userid`, `username`, `email`, `gender`, `password`, `date`) VALUES ('$userid','$username','$email', '$gender','$password','$date');";
+    $sql = "INSERT INTO `usertable`( `userid`, `username`, `email`, `gender`, `password`,`image`, `date`) VALUES ('$userid','$username','$email', '$gender','$password','$file','$date');";
     $connect = mysqli_query($conn, $sql);
 
     if ($connect) {

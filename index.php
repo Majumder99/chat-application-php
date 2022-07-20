@@ -434,12 +434,12 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = () => {
             if (xhttp.readyState == 4 && xhttp.status == 200) {
-                alert(xhttp.responseText);
+                // alert(xhttp.responseText);
+                // handle_result(xhttp.responseText);
                 get_data({
                     user: current_chat_user,
                     seen: seen_status
                 }, 'chats_refresh');
-                // handle_result(xhttp.responseText);
                 // change_image_input.disable = false;
                 // change_image_input.innerHTML = "Save Settings";
             }

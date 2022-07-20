@@ -10,6 +10,8 @@ $email = $data_obj->email;
 $password = $data_obj->password;
 $checked = $data_obj->check;
 
+
+
 if ($conn && !empty($email)) {
     $sql = "SELECT * FROM `usertable` WHERE email = '$email';";
     $connect = mysqli_query($conn, $sql);

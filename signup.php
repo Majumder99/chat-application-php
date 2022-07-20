@@ -55,10 +55,6 @@ $email = $username = $password = $repassword = $gender = '';
                                             <label class="form-check-label" for="gender_female">Female</label>
                                         </div>
 
-                                        <!-- <div class="form-check form-check-inline mb-0">
-                                            <input value="Female" class="form-check-input" type="radio" id="otherGender" value="Other" name="gender" />
-                                            <label class="form-check-label" for="otherGender">Other</label>
-                                        </div> -->
                                     </div>
                                     <div class="red-text" id="gender_part" style="margin-left: 14px;margin-top: -16px;margin-bottom: 30px;">
                                     </div>
@@ -79,6 +75,14 @@ $email = $username = $password = $repassword = $gender = '';
                                             <div class="red-text" id="repassword"></div>
                                         </div>
                                     </div>
+
+
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
+                                        <label for='message_file' class="btn btn-primary btn-md">Upload Images</label>
+                                        <input type='file' name='file' id='message_file' style='display:none;' onchange='send_files(this.files)' />
+                                    </div>
+
 
 
 
@@ -116,6 +120,7 @@ $email = $username = $password = $repassword = $gender = '';
     signup_button.addEventListener('click', collect_data);
 
     function collect_data() {
+        // console.log(image_file);
         signup_button.disable = true;
         signup_button.value = 'Loading.....';
         var myForm = documentId("myForm");
@@ -146,6 +151,7 @@ $email = $username = $password = $repassword = $gender = '';
                     break;
             }
         }
+        data.files = image_file;
         send_data(data, "signup");
     }
     const send_data = (data, type) => {
@@ -167,6 +173,7 @@ $email = $username = $password = $repassword = $gender = '';
     const handle_result = (result) => {
         console.log(result);
         var data = JSON.parse(result);
+
         if (data.data_type == "Successfull") {
             window.location.assign("login.php");
         } else {
@@ -183,6 +190,48 @@ $email = $username = $password = $repassword = $gender = '';
             repassword.innerHTML = data.message.repassword;
             gender_part.innerHTML = data.message.gender;
         }
+    }
+    var image_file = '';
+    const get_image = (s) => {
+        s = JSON.parse(s);
+        // alert(s.destination);
+        image_file = s.destination;
+    }
+    const send_files = (files) => {
+        // alert(files[0].name);
+        // if multiple file then use for loop video part 57 06 minute
+
+        var filename = files[0].name;
+        var ext_start = filename.lastIndexOf(".");
+        var ext = filename.substr(ext_start + 1, 3);
+        if (!(ext === 'jpg' || ext === 'JPG' || ext === 'png' || ext === 'PNG')) {
+            alert("This file type is not allowed");
+            return;
+        }
+
+        var myForm = new FormData();
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = () => {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                // alert(xhttp.responseText);
+                // get_data({
+                //     user: current_chat_user,
+                //     seen: seen_status
+                // }, 'chats_refresh');
+                get_image(xhttp.responseText);
+                // change_image_input.disable = false;
+                // change_image_input.innerHTML = "Save Settings";
+            }
+        };
+
+        myForm.append('file', files[0]);
+        myForm.append('data_type', "registration_files");
+
+        // console.log(data_string)
+        // console.log("sending files");
+        xhttp.open("POST", "reg_uploader.php", true);
+        // xhttp.open("POST", "api.php", true);
+        xhttp.send(myForm);
     }
 </script>
 

@@ -1,4 +1,5 @@
 <?php
+
 $email = $password = '';
 ?>
 
@@ -20,7 +21,7 @@ $email = $password = '';
 
                             <div class="form-outline mb-4">
                                 <label class="form-label margin-label1" for="typeEmailX-2">Email</label>
-                                <input name="email" value="<?php echo htmlspecialchars($email); ?>" type="email" id="typeEmailX-2" class="form-control form-control-lg" />
+                                <input onchange="destination_file(<?php echo $destination; ?>)" name="email" value="<?php echo htmlspecialchars($email); ?>" type="email" id="typeEmailX-2" class="form-control form-control-lg" />
                                 <div style="color: red;" id="email"></div>
                             </div>
 
@@ -55,8 +56,7 @@ $email = $password = '';
 
         return document.getElementById(element);
     }
-    var login_button = get_element("login_button");
-    login_button.addEventListener('click', collect_data);
+
 
     var remember_check = get_element("remember_check");
     var checking = false;
@@ -70,7 +70,7 @@ $email = $password = '';
         }
     });
 
-    function collect_data() {
+    const collect_data = () => {
         login_button.disable = true;
         login_button.value = 'Loading.....';
         var myForm = get_element("myForm");
@@ -91,6 +91,10 @@ $email = $password = '';
         data.check = checking;
         send_data(data, "login");
     }
+
+    var login_button = get_element("login_button");
+    login_button.addEventListener('click', collect_data);
+
     const send_data = (data, type) => {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = () => {

@@ -82,9 +82,8 @@ if ($data_type == 'change_profile_image') {
         $info->data_type = $data_type;
         echo json_encode($info);
     }
+} elseif ($data_type == 'registration_files') {
+    $info->destination = $destination;
+    $info->data_type = $data_type;
+    echo json_encode($info);
 }
-
-
-
-// INSERT INTO `message_table`(`id`, `msg_id`, `sender`, `receiver`, `message`, `file`, `date`, `seen`, `received`, `deleted_sender`, `deleted_receiver`) VALUES
-//  ('[value-1]','[value-2]','[value-3]','[value-4]','[value-5]','[value-6]','[value-7]','[value-8]','[value-9]','[value-10]','[value-11]')
