@@ -13,9 +13,9 @@
 <body>
     <div id="header1">
         <h1>Admin panel</h1>
-        <button class="btn btn-secondary" style="font-family:fangsong;" onclick="logout_admin(event)">Logout</button>
-        <button class="btn btn-secondary" style="font-family:fangsong;" onclick="show_users()">User</button>
-        <button class="btn btn-secondary" style="font-family:fangsong;" onclick="change_settings()">Settings</button>
+        <button class="btn btn-secondary" style="font-family:fangsong !important;" onclick="logout_admin(event)">Logout</button>
+        <button class="btn btn-secondary" style="font-family:fangsong !important;" onclick="show_users()">User</button>
+        <button class="btn btn-secondary" style="font-family:fangsong !important;" onclick="change_settings()">Settings</button>
     </div>
 
     <section class="vh-300">

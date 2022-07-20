@@ -21,7 +21,6 @@ if ($conn && !empty($email)) {
             while ($result = mysqli_fetch_assoc($connect)) {
                 $newid = $result['userid'];
                 if ($newid == '62d696ce669') {
-                    // header("Location:http://localhost/Web%20Project/includes/admin_panel.php");
                     $info->email = "";
                     $info->password = "";
                     $info->message = "Connect Successfully admin";

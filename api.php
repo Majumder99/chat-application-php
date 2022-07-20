@@ -41,20 +41,19 @@ if (isset($data_obj->data_type) && $data_obj->data_type == 'signup') {
     //settings
     include "includes/settings.php";
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'save_settings') {
-    //settings
+    //save_settings
     include "includes/save_settings.php";
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'change_profile_image') {
-    //settings
+    //change_profile_image
     include "includes/save_settings.php";
-    // echo "from file save";
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'delete_single_message') {
-    //settings
+    //delete_single_message
     include "includes/delete_single_message.php";
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'send_message') {
-    //settings
+    //send_message
     include "includes/send_message.php";
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'delete_all_message') {
-    //settings
+    //delete_all_message
     include "includes/delete_all_message.php";
 }
 

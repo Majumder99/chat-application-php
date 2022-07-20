@@ -16,12 +16,6 @@ if ($conn) {
     if ($connect) {
         $num = mysqli_num_rows($connect);
         if ($num > 0) {
-            // $result1 = mysqli_fetch_assoc($connect);
-            // $image = ($result1['gender'] == 'Male')  ? 'ui/images/user1.jpg' : 'ui/images/user2.jpg';
-            // if (file_exists($result1['image'])) {
-            //     $image = $result1['image'];
-            // }
-            // $o->{'123foo'};
             $result = (object)mysqli_fetch_assoc($connect);
             $image = ($result->{'gender'} == 'Male')  ? 'ui/images/user1.jpg' : 'ui/images/user2.jpg';
             if (file_exists($result->{'image'})) {
@@ -29,7 +23,6 @@ if ($conn) {
             }
             $result->data_type = 'user_info';
             $result->pro_image = $image;
-            // $result2->image = $image;
             echo json_encode($result);
         } else {
             $info->email = "Userid doesn't exist";

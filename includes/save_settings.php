@@ -55,16 +55,10 @@ if (empty($repassword)) {
 
 
 if (array_filter($errors)) {
-    // foreach ($errors as $key => $val) {
-    // echo "Error in $key => $val <br>";
-    // }
     $info->message = $errors;
     $info->data_type = 'Error';
     echo json_encode($info);
 } else {
-
-    // UPDATE `usertable` SET `username`= '$username',`email`= '$email',
-    // `gender`= '$gender',`password`= '$password',`image`='[value-7]',`date`='[value-8]',`online`='[value-9]' WHERE userid = '$userid';
 
     $sql = "UPDATE `usertable` SET `username`= '$username',`email`= '$email',`gender`= '$gender',`password`= '$password' WHERE userid = '$userid';";
     $connect = mysqli_query($conn, $sql);

@@ -2,11 +2,6 @@
 
 $info = (object)[];
 
-// if (isset($data_obj->find)) {
-// } else {
-//     $connect = false;
-// }
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -62,10 +57,6 @@ if ($connect) {
             <div id='message_holder' style='height:748px; overflow-y:scroll;'>";
 
 
-
-
-        // $message .= leftmessage($result);
-        // $message .= rightmessage($result);
         // read from db
         $sql4 = "SELECT * FROM `message_table` WHERE msg_id = '$msgId';";
         $connectagain1 = mysqli_query($conn, $sql4);

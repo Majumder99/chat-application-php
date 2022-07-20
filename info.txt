@@ -1,3 +1,0 @@
-user : admin99
-pass : adminM9#
-admin99@gmail.com

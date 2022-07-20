@@ -12,7 +12,6 @@ if (isset($data_obj->find->rowid)) {
 }
 
 $sql = "DELETE FROM `message_table` WHERE id = $rowid LIMIT 1;";
-// DELETE FROM `message_table` WHERE id = $rowid;
 $connect = mysqli_query($conn, $sql);
 
 if ($connect) {
