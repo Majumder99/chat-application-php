@@ -32,8 +32,8 @@ $email = $password = '';
 
                             <!-- Checkbox -->
                             <div class="form-check d-flex justify-content-start mb-4">
-                                <input name="remember" class="form-check-input me-3" type="checkbox" value="" id="form1Example3" />
-                                <label name="remember" class="form-check-label " for="form1Example3"> Remember password </label>
+                                <input name="remember" class="form-check-input me-3" type="checkbox" id="remember_check" />
+                                <label name="remember" class="form-check-label " for="remember_check"> Remember password </label>
                             </div>
 
                             <input type="button" value="Login" name="submit" class="btn btn-primary btn-lg btn-block" id="login_button">
@@ -55,8 +55,20 @@ $email = $password = '';
 
         return document.getElementById(element);
     }
-    var login_button = document.getElementById("login_button");
+    var login_button = get_element("login_button");
     login_button.addEventListener('click', collect_data);
+
+    var remember_check = get_element("remember_check");
+    var checking = false;
+    remember_check.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            checking = true;
+            console.log('we have cheked')
+        } else {
+            checking = false;
+            console.log('we have uncheked')
+        }
+    });
 
     function collect_data() {
         login_button.disable = true;
@@ -76,6 +88,7 @@ $email = $password = '';
                     break;
             }
         }
+        data.check = checking;
         send_data(data, "login");
     }
     const send_data = (data, type) => {

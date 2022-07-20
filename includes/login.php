@@ -8,6 +8,8 @@ $info = (object)[];
 
 $email = $data_obj->email;
 $password = $data_obj->password;
+$checked = $data_obj->check;
+
 if ($conn && !empty($email)) {
     $sql = "SELECT * FROM `usertable` WHERE email = '$email';";
     $connect = mysqli_query($conn, $sql);
@@ -23,6 +25,11 @@ if ($conn && !empty($email)) {
                     $info->message = "Connect Successfully admin";
                     $info->data_type = 'admin';
                     $_SESSION['admin_id'] = '62d696ce669';
+                    if ($checked) {
+                        setcookie('email', $email, time() + 86400);
+                        setcookie('password', $password, time() + 86400);
+                        $info->cookies = 'set cookies';
+                    }
                     echo json_encode($info);
                 } else {
                     if (empty($password)) {
@@ -38,6 +45,11 @@ if ($conn && !empty($email)) {
                             $info->email = "";
                             $info->password = "";
                             $info->data_type = 'Successfull';
+                            if ($checked) {
+                                setcookie('email', $email, time() + 86400);
+                                setcookie('password', $password, time() + 86400);
+                                $info->cookies = 'set cookies';
+                            }
                             echo json_encode($info);
                         } else {
                             $info->email = "";
