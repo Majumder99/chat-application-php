@@ -35,4 +35,11 @@ if (isset($data_obj->data_type) && $data_obj->data_type == 'show_user') {
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'logout_admin') {
     //signup
     include "admin_includes/logout_admin.php";
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'change_settings') {
+    //signup
+    include "admin_includes/change_settings.php";
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'admin_save_settings') {
+    //signup
+    include "admin_includes/admin_save_settings.php";
+    // echo json_encode($data_obj);
 }

@@ -4,8 +4,11 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$userid1 = $_SESSION['userid'];
+// $_SESSION['admin_id'] = '62d696ce669';
+
+$userid1 = $_SESSION['admin_id'];
 $sql = "SELECT * FROM `usertable` WHERE userid = '$userid1' LIMIT 1;";
+
 $connect = mysqli_query($conn, $sql);
 $myData = '';
 if ($connect) {
@@ -33,7 +36,7 @@ if ($connect) {
             border: none;
         }
         </style>
-<div class="card text-black" style="border-radius: 25px;margin:50px;">
+<div class="card text-black" style="border-radius: 25px;margin-left: auto;margin-right: auto;">
         <div class="card-body p-md-5">
             <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1"> 
@@ -98,6 +101,7 @@ if ($connect) {
                                                 <div class="red-text" id="repassword"></div>
                                             </div>
                                         </div>
+
                                         <input id="save_settings_button" type="button" value="Save Settings" name="submit" onclick="collect_data()" class="btn btn-primary btn-lg">
                                     </form>
                             </div>
@@ -113,11 +117,11 @@ if ($connect) {
     $info = (object)[];
 
     $info->message = $myData;
-    $info->data_type = 'settings';
+    $info->data_type = 'change_settings';
     echo json_encode($info);
 } else {
 
     $info->message = "No contacts were found";
-    $info->data_type = "Error";
+    $info->data_type = "change_settings";
     echo json_encode($info);
 }

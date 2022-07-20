@@ -270,7 +270,7 @@
 </script>
 
 <script>
-    function collect_data() {
+    const collect_data = () => {
         var save_settings_button = get_element("save_settings_button");
         save_settings_button.disable = true;
         save_settings_button.value = "Loading.....";
