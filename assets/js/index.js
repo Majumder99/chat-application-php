@@ -35,7 +35,7 @@ const get_data = (find, type) => {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
-      handle_result(xhttp.responseText, type);
+      handle_result(xhttp.responseText);
     }
   };
   var data = {};
@@ -77,7 +77,6 @@ const handle_result = (result, type) => {
         case "chats_refresh":
           var message_holder = get_element("message_holder");
           message_holder.innerHTML = obj.messages;
-          console.log(obj.new_message);
 
           if (typeof obj.new_message != "undefined") {
             if (obj.new_message) {
