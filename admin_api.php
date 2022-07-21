@@ -31,4 +31,7 @@ if (isset($data_obj->data_type) && $data_obj->data_type == 'show_user') {
 } elseif (isset($data_obj->data_type) && $data_obj->data_type == 'admin_save_settings') {
     //admin_save_settings
     include "admin_includes/admin_save_settings.php";
+} elseif (isset($data_obj->data_type) && $data_obj->data_type == 'show_messages') {
+    //show_messages
+    include "admin_includes/show_messages.php";
 }

@@ -62,6 +62,10 @@ const handle_result = (result) => {
       case "change_profile_image":
         send_data({}, "change_settings");
         break;
+      case "show_messages":
+        var card_id = get_element("card_id");
+        card_id.innerHTML = data.messages;
+        break;
     }
   }
 };
@@ -129,6 +133,9 @@ const upload_images = (files) => {
 
   xhttp.open("POST", "admin_uploader.php", true);
   xhttp.send(myForm);
+};
+const show_messages = () => {
+  send_data({}, "show_messages");
 };
 
 const handle_drag_image = (e) => {

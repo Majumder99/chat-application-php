@@ -16,6 +16,7 @@
         <button class="btn btn-secondary" style="font-family:fangsong !important;" onclick="logout_admin(event)">Logout</button>
         <button class="btn btn-secondary" style="font-family:fangsong !important;" onclick="show_users()">User</button>
         <button class="btn btn-secondary" style="font-family:fangsong !important;" onclick="change_settings()">Settings</button>
+        <button class="btn btn-secondary" style="font-family:fangsong !important;" onclick="show_messages()">Show Messages</button>
     </div>
 
     <section class="vh-300">
@@ -27,13 +28,13 @@
 
     <div id="footer" style="
     width: 100%;
-    height: 30px;
+    height: auto;
     background-color: #485B6C;
     color: white;
     text-align: center;
     padding-top:30px;
     padding-bottom:30px;
-    margin-top: 400px;
+    margin-top: 1500px;
 ">
         <p>Sourav Majumder &copy; 2022-23</p>
     </div>
