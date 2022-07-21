@@ -21,7 +21,6 @@
     </div>
     <div id="right_pannel">
         <div id="header">
-            <!-- <div id="loader_auto"><img src="ui/icons/giphy.gif" alt=""></div> -->
             <div id="image_viewer" class="image_off" onclick="close_image(event)"></div>
             My Chat
         </div>

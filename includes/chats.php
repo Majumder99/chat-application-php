@@ -30,19 +30,18 @@ if ($connect) {
         }
         $myData = "";
         if (!$refresh) {
-            $myData = "<h6>Now Chatting with '$userName'</h6>
-            <div id='active_contact' style='
-            border: 1px solid #aaa;
-            width: 310px;
-                    height: 115px;
-                '>
-                            <img src='$image' alt='' style='
-                                width: 30%;
-                                margin: 10px;
-                                float: left;'>
-                                <br>
-                            $userName
-                            </div>";
+            $myData = "<h6>Now Chatting with $userName</h6>
+            <div id='active_contact' style='border: 1px solid #aaa;width: 310px;height: 200px;text-align:center;'>
+                <img src='$image' alt='' style='width: 150px;height: 150px;margin: 10px;float: left;'>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div style='margin-right:100px;'>$userName</div>
+            </div>";
         }
 
         $message = '';
